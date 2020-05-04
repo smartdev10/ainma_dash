@@ -10,31 +10,28 @@ import {
 
 import GoogleMap from '../../layouts/MapContainer'
 
-const RideModal = ({ toggleRideModal , currentModal , ride })=> {
+const AddPlace = ({ toggleAddPlaceModal , currentModal , ride })=> {
     // console.log(ride)
 
-    if(Object.keys(ride).length === 0){
-       return null
-    }else{
     return (
       <>
         <Modal
           className="modal-dialog-centered"
           isOpen={currentModal}
-          toggle={() => toggleRideModal(false)}
+          toggle={() => toggleAddPlaceModal(false)}
           size="lg"
           style={{maxWidth: '1600px',  width: '80%'}}
         >
           <div className="modal-header">
             <h4 className="modal-title" id="modal-title-default">
-             Ride Details
+             Add Place
             </h4>
             <button
               aria-label="Close"
               className="close"
               data-dismiss="modal"
               type="button"
-              onClick={() => toggleRideModal(false)}
+              onClick={() => toggleAddPlaceModal(false)}
             >
               <span aria-hidden={true}>×</span>
             </button>
@@ -53,8 +50,7 @@ const RideModal = ({ toggleRideModal , currentModal , ride })=> {
         </Modal>
       </>
     );
-   }
 }
 
 
-export default React.memo(RideModal)
+export default React.memo(AddPlace)

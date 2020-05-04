@@ -12,33 +12,30 @@ export class MapContainer extends React.Component {
     },
     zoom: 11
   };
-  // handleGoogleMapApi = (map, maps) => {
-  //   let directionsService = new maps.DirectionsService()
-  //   let directionsDisplay = new maps.DirectionsRenderer()
-  //   directionsDisplay.setMap(map)
-  //   const { ride } = this.props
-  //   const {startPoint , destination} = ride
-  //   directionsService.route(
-  //     {
-  //       travelMode: 'DRIVING',
-  //       origin: `${startPoint.coordinates[0]},${startPoint.coordinates[1]}` || startPoint.adresse  ,
-  //       destination: `${destination.coordinates[0]},${destination.coordinates[1]}` || destination.adresse
-  //     },
-  //     (DirectionsResult, DirectionsStatus) => {
-  //       console.log('DirectionsResult', DirectionsResult)
-  //       console.log('DirectionsStatus', DirectionsStatus)
-  //       if (DirectionsStatus === 'OK') {
-  //         directionsDisplay.setDirections(DirectionsResult);
-  //       }
-  //     }
-  //   )
-  // }
+
+  constructor(props) {
+    super(props);
+  
+    this.state = {
+      mapsApiLoaded: false,
+      mapInstance: null,
+      mapsapi: null,
+    };
+  }
+  apiLoaded= (map, maps) => {
+    this.setState({
+      mapsApiLoaded: true,
+      mapInstance: map,
+      mapsapi: maps,
+    });
+  }
   render() {
     return (
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-
-          // onGoogleApiLoaded={({ map, maps }) => this.handleGoogleMapApi(map, maps)}
+          onGoogleApiLoaded={({ map, maps }) => {
+            this.apiLoaded(map, maps);
+          }}
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: "AIzaSyDhClG2mx_HZ8YILy3PRxZKTw75im7hfQg" }}
           defaultZoom={this.props.zoom}>
@@ -47,6 +44,7 @@ export class MapContainer extends React.Component {
             lng={30.337844}
             text="My Marker"
           />
+           {mapsApiLoaded && <SearchBox map={mapInstance} mapsapi={mapsapi} />}
         </GoogleMapReact>
       </div>
     );
