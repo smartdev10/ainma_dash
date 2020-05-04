@@ -118,28 +118,31 @@ const  Places = () => {
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">
-            <div className="mr-2">
-              <Button
-              type="button"
-              color="danger"
-              onClick={() =>  {
-                setId(user._id)
-                setConfirmModal(c => !c )
-              }}
-              >
-              <i className="far fa-trash-alt mr-2"></i>
-                Delete
-              </Button>
+              <div className="mr-2">
+                <Button
+                type="button"
+                color="danger"
+                onClick={() =>  {
+                  setId(user._id)
+                  setConfirmModal(c => !c )
+                }}
+                >
+                <i className="far fa-trash-alt mr-2"></i>
+                حذف
+                </Button>
               </div>
-              <div>
-              <Link
-              to={`/details/user/${user._id}`}
-              className="btn btn-info"
-              type="button"
-              >
-                <FontAwesomeIcon className="mr-2" icon={faInfoCircle} />
-                More Info
-              </Link>
+              <div className="mr-2">
+                <Button
+                type="button"
+                color="danger"
+                onClick={() =>  {
+                  setId(user._id)
+                  setConfirmModal(c => !c )
+                }}
+                >
+                <i className="far fa-trash-alt mr-2"></i>
+                تعديل
+                </Button>
               </div>
             </div>
           </td>

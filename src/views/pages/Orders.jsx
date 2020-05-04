@@ -104,15 +104,15 @@ const  Orders = () => {
      </tr>
     )
    } else if(orders.length > 0){
-      return orders.map((user) => {
+      return orders.map((order) => {
         return (
-          <tr key={user._id}>
+          <tr key={order._id}>
           <th scope="row">
                 <span className="mb-0 text-sm">
-                 { user.email}
+                 { order.email}
                 </span>
           </th>
-          <td>{ user.phone_number }</td>
+          <td>{ order.phone_number }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">
@@ -121,23 +121,26 @@ const  Orders = () => {
               type="button"
               color="danger"
               onClick={() =>  {
-                setId(user._id)
+                setId(order._id)
                 setConfirmModal(c => !c )
               }}
               >
               <i className="far fa-trash-alt mr-2"></i>
-                Delete
+              حذف
               </Button>
               </div>
-              <div>
-              <Link
-              to={`/details/user/${user._id}`}
-              className="btn btn-info"
+              <div className="mr-2">
+              <Button
               type="button"
+              color="danger"
+              onClick={() =>  {
+                setId(order._id)
+                setConfirmModal(c => !c )
+              }}
               >
-                <FontAwesomeIcon className="mr-2" icon={faInfoCircle} />
-                More Info
-              </Link>
+              <i className="far fa-trash-alt mr-2"></i>
+              حذف
+              </Button>
               </div>
             </div>
           </td>

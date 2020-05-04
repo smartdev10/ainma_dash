@@ -110,7 +110,12 @@ class Sidebar extends React.Component {
           {/* Brand */}
           {logo ? (
             <NavbarBrand dir="rtl" className="pt-0" {...navbarBrandProps}>
-             إرواء وإنماء
+              <img
+                style={{maxHeight:"100%", height:"auto"}}
+                alt={logo.imgAlt}
+                className="navbar-brand-img"
+                src={logo.imgSrc}
+              />
             </NavbarBrand>
           ) : null}
       

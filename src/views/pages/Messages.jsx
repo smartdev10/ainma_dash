@@ -104,15 +104,15 @@ const  Messages = () => {
      </tr>
     )
    } else if(messages.length > 0){
-      return messages.map((user) => {
+      return messages.map((message) => {
         return (
-          <tr key={user._id}>
+          <tr key={message._id}>
           <th scope="row">
                 <span className="mb-0 text-sm">
-                 { user.email}
+                 { message.name}
                 </span>
           </th>
-          <td>{ user.phone_number }</td>
+          <td>{ message.phoneNumber }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">
@@ -121,23 +121,26 @@ const  Messages = () => {
               type="button"
               color="danger"
               onClick={() =>  {
-                setId(user._id)
+                setId(message._id)
                 setConfirmModal(c => !c )
               }}
               >
               <i className="far fa-trash-alt mr-2"></i>
-                Delete
+              حذف  
               </Button>
               </div>
-              <div>
-              <Link
-              to={`/details/user/${user._id}`}
-              className="btn btn-info"
-              type="button"
-              >
-                <FontAwesomeIcon className="mr-2" icon={faInfoCircle} />
-                More Info
-              </Link>
+              <div className="mr-2">
+              <Button
+                type="button"
+                color="info"
+                onClick={() =>  {
+                  setId(message._id)
+                  setConfirmModal(c => !c )
+                }}
+                >
+                <i className="far fa-trash-alt mr-2"></i>
+                عرض  
+              </Button>
               </div>
             </div>
           </td>

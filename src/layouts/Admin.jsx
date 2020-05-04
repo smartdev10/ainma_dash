@@ -70,7 +70,8 @@ class Admin extends React.Component {
           routes={routes}
           logo={{
             innerLink: "/admin/index",
-            imgAlt: "..."
+            imgAlt: "...",
+            imgSrc:require("assets/img/logo.png")
           }}
         />
         <div className="main-content" ref="mainContent">
