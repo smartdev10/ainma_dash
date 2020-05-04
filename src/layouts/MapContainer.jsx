@@ -2,7 +2,7 @@ import React from "react";
 import GoogleMapReact from 'google-map-react';
 
 // ...
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const Marker = ({ text }) => <div>{text}</div>;
 
 export class MapContainer extends React.Component {
   static defaultProps = {
@@ -39,7 +39,7 @@ export class MapContainer extends React.Component {
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: "AIzaSyDhClG2mx_HZ8YILy3PRxZKTw75im7hfQg" }}
           defaultZoom={this.props.zoom}>
-          <AnyReactComponent
+          <Marker
             lat={59.955413}
             lng={30.337844}
             text="My Marker"
