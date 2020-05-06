@@ -32,6 +32,7 @@ class SearchBox extends Component {
     } = this.props;
 
     this.searchBox = new places.SearchBox(this.searchInput.current);
+    this.props.map.controls[this.props.mapsapi.ControlPosition.TOP_CENTER].push(this.searchInput.current)
     this.searchBox.addListener('places_changed', this.onPlacesChanged);
   }
 
@@ -45,7 +46,6 @@ class SearchBox extends Component {
 
   onPlacesChanged = () => {
     const { onPlacesChanged } = this.props;
-
     if (onPlacesChanged) {
       onPlacesChanged(this.searchBox.getPlaces());
     }
@@ -59,6 +59,7 @@ class SearchBox extends Component {
         ref={this.searchInput}
         placeholder={placeholder}
         type="text"
+        dir="rtl"
         style={{
           width: '392px',
           height: '48px',

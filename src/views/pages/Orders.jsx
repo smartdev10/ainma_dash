@@ -27,9 +27,7 @@ import {
   Container,
   Row
 } from "reactstrap";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+
 import Loader from 'react-loader-spinner'
 import {delay} from "utils/";
 

@@ -27,9 +27,9 @@ import {
   Container,
   Row
 } from "reactstrap";
-import { Link } from "react-router-dom";
+import AddPlaceModal from "components/Modals/AddPlaceModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle , faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import Loader from 'react-loader-spinner'
 import {delay} from "utils/";
 
@@ -183,6 +183,7 @@ const  Places = () => {
           </Row>
           <Row>
             <div className="col">
+            <AddPlaceModal currentPage={currentPage} open={addModal} toggleAddPlaceModal={setToggleAddModal}/>
             <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
               <Card className="shadow">
                  <CardHeader className="d-flex justify-content-end border-0">

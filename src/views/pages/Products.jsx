@@ -27,9 +27,10 @@ import {
   Container,
   Row
 } from "reactstrap";
-import { Link } from "react-router-dom";
+
+import AddProductModal from "components/Modals/AddProductModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle , faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import Loader from 'react-loader-spinner'
 import {delay} from "utils/";
 
@@ -184,6 +185,8 @@ const  Products = () => {
           <Row>
             <div className="col">
               <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
+              <AddProductModal currentPage={currentPage} open={addModal} toggleAddProductModal={setToggleAddModal}/>
+
               <Card className="shadow">
                 <CardHeader className="d-flex justify-content-end border-0">
                   <h3 className="mb-0">المنتجات</h3>

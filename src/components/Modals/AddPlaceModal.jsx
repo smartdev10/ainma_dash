@@ -1,30 +1,34 @@
 import React from "react";
-import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Modal,
   ListGroup,
   ListGroupItem,
-  Badge 
+  FormGroup,
+  Label,
+  Input,
+  Button
 } from "reactstrap";
 
 import GoogleMap from '../../layouts/MapContainer'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSave } from '@fortawesome/free-solid-svg-icons'
 
-const AddPlace = ({ toggleAddPlaceModal , currentModal , ride })=> {
+const AddPlace = ({ toggleAddPlaceModal , open , place })=> {
     // console.log(ride)
 
     return (
       <>
         <Modal
           className="modal-dialog-centered"
-          isOpen={currentModal}
+          isOpen={open}
           toggle={() => toggleAddPlaceModal(false)}
           size="lg"
           style={{maxWidth: '1600px',  width: '80%'}}
         >
-          <div className="modal-header">
+          <div dir="rtl" className="modal-header d-flex justify-content-end">
             <h4 className="modal-title" id="modal-title-default">
-             Add Place
+            إضافة موقع
             </h4>
             <button
               aria-label="Close"
@@ -36,16 +40,33 @@ const AddPlace = ({ toggleAddPlaceModal , currentModal , ride })=> {
               <span aria-hidden={true}>×</span>
             </button>
           </div>
-          <div   className="modal-body">
-          <ListGroup>
-            <ListGroupItem><strong>Client</strong> : { ride.client ? <Link to={`/details/user/${ride.client._id}`} className="btn btn-info"> More info</Link> : 'client not fount'}  </ListGroupItem>
-            <ListGroupItem><strong>Driver</strong> : {ride.driver ? <Link to={`/details/driver/${ride.driver._id}`} className="btn btn-info"> More info</Link> : 'driver not fount' }  </ListGroupItem>
-            <ListGroupItem><strong>Payment Method</strong> : {ride.paymentMethod} </ListGroupItem>
-            <ListGroupItem>{ride.paid ?  <Badge color="success">Paid</Badge> : <Badge color="danger">Not Paid</Badge>}</ListGroupItem>
+          <div   className="container modal-body">
+          <ListGroup className="text-right" dir="rtl">
+            <ListGroupItem>
+              <FormGroup>
+                <Label for="exampleEmail"><strong>إسم الموقع :</strong> </Label>
+                <Input type="text" name="name" id="exampleEmail" placeholder="أدخل إسم الموقع" />
+              </FormGroup>
+             </ListGroupItem>
+            <ListGroupItem>
+                <FormGroup>
+                  <Label for="exampleSelect"><strong>نوع الموقع :</strong> </Label>
+                  <Input type="select" name="type" id="exampleSelect">
+                    <option>مسجد</option>
+                    <option>مستشفى</option>
+                  </Input>
+                </FormGroup> 
+            </ListGroupItem>
           </ListGroup>
           </div>
           <div >
-            <GoogleMap ride={ride}  style={{ height: '80%' , width:'80%' , marginRight:'15px' }} />
+            <GoogleMap place={place}  style={{ height: '60%' , width:'80%' , marginRight:'15px' }} />
+          </div>
+          <div className="modal-footer">
+            <Button dir="rtl" color="primary" type="button">
+              <FontAwesomeIcon className="ml-2" icon={faSave} />
+              حفظ
+            </Button>
           </div>
         </Modal>
       </>
