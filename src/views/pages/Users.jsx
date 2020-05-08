@@ -27,9 +27,7 @@ import {
   Container,
   Row
 } from "reactstrap";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+
 import Loader from 'react-loader-spinner'
 import {delay} from "utils/";
 
@@ -109,14 +107,15 @@ const  Users = () => {
           <tr key={user._id}>
           <th scope="row">
                 <span className="mb-0 text-sm">
-                 { user.email}
+                 { user.name}
                 </span>
           </th>
-          <td>{ user.phone_number }</td>
+          <td>{ user.phoneNumber }</td>
+          <td>{ user.email }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">
-              <div className="mr-2">
+              <div className="ml-2">
                 <Button
                 type="button"
                 color="danger"
@@ -125,19 +124,22 @@ const  Users = () => {
                   setConfirmModal(c => !c )
                 }}
                 >
-                <i className="far fa-trash-alt mr-2"></i>
+                <i className="far fa-trash-alt ml-2"></i>
                 حذف
                 </Button>
               </div>
-              <div>
-              <Link
-              to={`/details/user/${user._id}`}
-              className="btn btn-info"
-              type="button"
-              >
-                <FontAwesomeIcon className="mr-2" icon={faInfoCircle} />
-                More Info
-              </Link>
+              <div className="ml-2">
+                <Button
+                type="button"
+                color="primary"
+                onClick={() =>  {
+                  setId(user._id)
+                  setConfirmModal(c => !c )
+                }}
+                >
+                <i className="fas fa-info-circle ml-2"></i>
+                عرض
+                </Button>
               </div>
             </div>
           </td>

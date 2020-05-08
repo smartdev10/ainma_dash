@@ -114,31 +114,31 @@ const  Orders = () => {
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">
-            <div className="mr-2">
-              <Button
-              type="button"
-              color="danger"
-              onClick={() =>  {
-                setId(order._id)
-                setConfirmModal(c => !c )
-              }}
-              >
-              <i className="far fa-trash-alt mr-2"></i>
-              حذف
-              </Button>
+              <div className="ml-2">
+                <Button
+                type="button"
+                color="danger"
+                onClick={() =>  {
+                  setId(order._id)
+                  setConfirmModal(c => !c )
+                }}
+                >
+                <i className="far fa-trash-alt ml-2"></i>
+                حذف
+                </Button>
               </div>
-              <div className="mr-2">
-              <Button
-              type="button"
-              color="danger"
-              onClick={() =>  {
-                setId(order._id)
-                setConfirmModal(c => !c )
-              }}
-              >
-              <i className="far fa-trash-alt mr-2"></i>
-              حذف
-              </Button>
+              <div className="ml-2">
+                <Button
+                type="button"
+                color="primary"
+                onClick={() =>  {
+                  setId(order._id)
+                  setConfirmModal(c => !c )
+                }}
+                >
+                <i className="fas fa-info-circle ml-2"></i>
+                عرض
+                </Button>
               </div>
             </div>
           </td>

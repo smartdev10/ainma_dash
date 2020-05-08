@@ -119,7 +119,7 @@ const  Products = () => {
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">
-              <div className="mr-2">
+              <div className="ml-2">
                 <Button
                 type="button"
                 color="danger"
@@ -128,21 +128,21 @@ const  Products = () => {
                   setConfirmModal(c => !c )
                 }}
                 >
-                <i className="far fa-trash-alt mr-2"></i>
+                <i className="far fa-trash-alt ml-2"></i>
                 حذف
                 </Button>
               </div>
-              <div className="mr-2">
+              <div className="ml-2">
                 <Button
                 type="button"
-                color="danger"
+                color="primary"
                 onClick={() =>  {
                   setId(product._id)
                   setConfirmModal(c => !c )
                 }}
                 >
-                <i className="far fa-trash-alt mr-2"></i>
-                تعديل 
+                <i className="fas fa-info-circle ml-2"></i>
+                عرض
                 </Button>
               </div>
             </div>

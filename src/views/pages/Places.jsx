@@ -106,42 +106,42 @@ const  Places = () => {
      </tr>
     )
    } else if(places.length > 0){
-      return places.map((user) => {
+      return places.map((place) => {
         return (
-          <tr key={user._id}>
+          <tr key={place._id}>
           <th scope="row">
                 <span className="mb-0 text-sm">
-                 { user.email}
+                 { place.name}
                 </span>
           </th>
-          <td>{ user.phone_number }</td>
+          <td>{ place.type }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
-            <div className="d-flex align-items-center">
-              <div className="mr-2">
+             <div className="d-flex align-items-center">
+              <div className="ml-2">
                 <Button
                 type="button"
                 color="danger"
                 onClick={() =>  {
-                  setId(user._id)
+                  setId(place._id)
                   setConfirmModal(c => !c )
                 }}
                 >
-                <i className="far fa-trash-alt mr-2"></i>
+                <i className="far fa-trash-alt ml-2"></i>
                 حذف
                 </Button>
               </div>
-              <div className="mr-2">
+              <div className="ml-2">
                 <Button
                 type="button"
-                color="danger"
+                color="primary"
                 onClick={() =>  {
-                  setId(user._id)
+                  setId(place._id)
                   setConfirmModal(c => !c )
                 }}
                 >
-                <i className="far fa-trash-alt mr-2"></i>
-                تعديل
+                <i className="fas fa-info-circle ml-2"></i>
+                عرض
                 </Button>
               </div>
             </div>

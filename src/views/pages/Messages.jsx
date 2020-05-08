@@ -113,31 +113,31 @@ const  Messages = () => {
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">
-            <div className="mr-2">
-              <Button
-              type="button"
-              color="danger"
-              onClick={() =>  {
-                setId(message._id)
-                setConfirmModal(c => !c )
-              }}
-              >
-                <i className="far fa-trash-alt mr-2"></i>
-              حذف  
-              </Button>
-              </div>
-              <div className="mr-2">
-              <Button
+              <div className="ml-2">
+                <Button
                 type="button"
-                color="info"
+                color="danger"
                 onClick={() =>  {
                   setId(message._id)
                   setConfirmModal(c => !c )
                 }}
                 >
-                <i className="far fa-trash-alt mr-2"></i>
-                عرض  
-              </Button>
+                <i className="far fa-trash-alt ml-2"></i>
+                حذف
+                </Button>
+              </div>
+              <div className="ml-2">
+                <Button
+                type="button"
+                color="primary"
+                onClick={() =>  {
+                  setId(message._id)
+                  setConfirmModal(c => !c )
+                }}
+                >
+                <i className="fas fa-info-circle ml-2"></i>
+                عرض
+                </Button>
               </div>
             </div>
           </td>
