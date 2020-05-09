@@ -19,19 +19,17 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
 
   const [name, setProductName] = useState("")
   const [price, setProductPrice] = useState("")
-  const [stock, setProductStock] = useState("")
   const [description, setProductDesc] = useState("")
   const dispatch = useDispatch()
 
   useEffect(()=>{
     setProductName(product.name)
     setProductPrice(product.price)
-    setProductStock(product.stock)
     setProductDesc(product.description)
   },[product])
 
  const saveProduct = () => {
-    dispatch(updateProduct({data:{id:product._id,name,price,stock,description}}))
+    dispatch(updateProduct({data:{id:product._id,name,price,description}}))
     .then(() => {
       const offset = (currentPage - 1) * 10;
       dispatch(fetchProducts({
@@ -77,26 +75,20 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
         <ListGroup className="text-right" dir="rtl">
             <ListGroupItem>
               <FormGroup>
-                <Label for="exampleEmail"><strong>إسم الموقع :</strong> </Label>
-                <Input onChange={(e)=>  setProductName(e.target.value) } value={name} type="text" name="name" id="exampleEmail" placeholder="أدخل إسم الموقع" />
+                <Label for="exampleEmail"><strong>إسم المنتج :</strong> </Label>
+                <Input onChange={(e)=>  setProductName(e.target.value) } value={name} type="text" name="name" id="exampleEmail1" placeholder="أدخل إسم المنتج" />
               </FormGroup>
              </ListGroupItem>
              <ListGroupItem>
               <FormGroup>
-                <Label for="exampleEmail"><strong>إسم الموقع :</strong> </Label>
-                <Input onChange={(e)=>  setProductPrice(e.target.value) } value={price} type="text" name="price" id="exampleEmail" placeholder="أدخل إسم الموقع" />
+                <Label for="exampleEmail"><strong>ثمن المنتج :</strong> </Label>
+                <Input onChange={(e)=>  setProductPrice(e.target.value) } value={price} type="text" name="price" id="exampleEmail2" placeholder="أدخل ثمن المنتج" />
               </FormGroup>
              </ListGroupItem>
              <ListGroupItem>
               <FormGroup>
-                <Label for="exampleEmail"><strong>إسم الموقع :</strong> </Label>
-                <Input onChange={(e)=>  setProductStock(e.target.value) } value={stock} type="text" name="stock" id="exampleEmail" placeholder="أدخل إسم الموقع" />
-              </FormGroup>
-             </ListGroupItem>
-             <ListGroupItem>
-              <FormGroup>
-                <Label for="exampleEmail"><strong>إسم الموقع :</strong> </Label>
-                <Input onChange={(e)=>  setProductDesc(e.target.value) } value={description} type="text" name="description" id="exampleEmail" placeholder="أدخل إسم الموقع" />
+                <Label for="exampleEmail"><strong>وصف المنتج :</strong> </Label>
+                <Input onChange={(e)=>  setProductDesc(e.target.value) } value={description} type="textarea" name="description" id="exampleEmail3" placeholder="أدخل وصف المنتج" />
               </FormGroup>
              </ListGroupItem>
           </ListGroup>

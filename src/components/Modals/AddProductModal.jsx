@@ -5,9 +5,9 @@ import {
   Modal,
   Input,
   FormGroup,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
+  ListGroup,
+  ListGroupItem,
+  Label
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
@@ -19,7 +19,6 @@ const AddProduct = (props)=> {
 
   const [name, setName] = useState("")
   const [price, setPrice] = useState("")
-  const [stock, setStock] = useState("")
   const [desc, setDesc] = useState("")
   const dispatch = useDispatch()
 
@@ -27,7 +26,7 @@ const AddProduct = (props)=> {
  
   const saveProduct = (e) => {
     const {currentPage} = props
-    dispatch(CreateProduct({data:{name,price,stock,description:desc}}))
+    dispatch(CreateProduct({data:{name,price,description:desc}}))
     .then(() => {
       const offset = (currentPage - 1) * 10;
       dispatch(fetchProducts({
@@ -67,49 +66,26 @@ const AddProduct = (props)=> {
           </button>
         </div>
         <div dir="rtl" className="container modal-body">
-          <FormGroup className="mb-3">
-            <InputGroup className="input-group-alternative">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>
-                  <i className="ni ni-tag" />
-                </InputGroupText>
-              </InputGroupAddon>
-              <Input onChange={(e)=>  setName(e.target.value) } placeholder="إسم المنتج" name="name" type="text" />
-            </InputGroup>
-          </FormGroup>
-
-          <FormGroup className="mb-3">
-            <InputGroup className="input-group-alternative">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>
-                  <i className="ni ni-tag" />
-                </InputGroupText>
-              </InputGroupAddon>
-              <Input onChange={(e)=>  setPrice(e.target.value) } placeholder="ثمن المنتج" name="price" type="text" />
-            </InputGroup>
-          </FormGroup>
-
-          <FormGroup className="mb-3">
-            <InputGroup className="input-group-alternative">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>
-                  <i className="ni ni-tag" />
-                </InputGroupText>
-              </InputGroupAddon>
-              <Input onChange={(e)=>  setStock(e.target.value) } placeholder="الكمية" name="stock" type="number" inputMode="numeric" />
-            </InputGroup>
-          </FormGroup>
-
-          <FormGroup className="mb-3">
-            <InputGroup className="input-group-alternative">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>
-                  <i className="ni ni-tag" />
-                </InputGroupText>
-              </InputGroupAddon>
-              <Input onChange={(e)=>  setDesc(e.target.value) } placeholder="وصف المنتج" name="description" type="text" />
-            </InputGroup>
-          </FormGroup>
+        <ListGroup className="text-right" dir="rtl">
+            <ListGroupItem>
+              <FormGroup>
+                <Label for="exampleEmail"><strong>إسم المنتج :</strong> </Label>
+                <Input onChange={(e)=>  setName(e.target.value) }  type="text" name="name" id="exampleEmail1" placeholder="أدخل إسم المنتج" />
+              </FormGroup>
+             </ListGroupItem>
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="exampleEmail"><strong>ثمن المنتج :</strong> </Label>
+                <Input onChange={(e)=>  setPrice(e.target.value) }  type="text" name="price" id="exampleEmail2" placeholder="أدخل ثمن المنتج" />
+              </FormGroup>
+             </ListGroupItem>
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="exampleEmail"><strong>وصف المنتج :</strong> </Label>
+                <Input onChange={(e)=>  setDesc(e.target.value) }  type="textarea" name="description" id="exampleEmail3" placeholder="أدخل وصف المنتج" />
+              </FormGroup>
+             </ListGroupItem>
+          </ListGroup>
         </div>
         <div className="modal-footer">
           <Button dir="rtl"  onClick={(e)=> saveProduct() } color="primary" type="button">
