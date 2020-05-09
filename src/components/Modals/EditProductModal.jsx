@@ -5,9 +5,9 @@ import {
   Modal,
   Input,
   FormGroup,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
+  ListGroup,
+  ListGroupItem,
+  Label
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
@@ -74,16 +74,32 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
           </button>
         </div>
         <div className="modal-body">
-          <FormGroup className="mb-3">
-            <InputGroup className="input-group-alternative">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>
-                  <i className="ni ni-tag" />
-                </InputGroupText>
-              </InputGroupAddon>
-              <Input onChange={(e)=>  setProductName(e.target.value) } placeholder="Product Name" name="name" type="text" />
-            </InputGroup>
-          </FormGroup>
+        <ListGroup className="text-right" dir="rtl">
+            <ListGroupItem>
+              <FormGroup>
+                <Label for="exampleEmail"><strong>إسم الموقع :</strong> </Label>
+                <Input onChange={(e)=>  setProductName(e.target.value) } value={name} type="text" name="name" id="exampleEmail" placeholder="أدخل إسم الموقع" />
+              </FormGroup>
+             </ListGroupItem>
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="exampleEmail"><strong>إسم الموقع :</strong> </Label>
+                <Input onChange={(e)=>  setProductPrice(e.target.value) } value={price} type="text" name="price" id="exampleEmail" placeholder="أدخل إسم الموقع" />
+              </FormGroup>
+             </ListGroupItem>
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="exampleEmail"><strong>إسم الموقع :</strong> </Label>
+                <Input onChange={(e)=>  setProductStock(e.target.value) } value={stock} type="text" name="stock" id="exampleEmail" placeholder="أدخل إسم الموقع" />
+              </FormGroup>
+             </ListGroupItem>
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="exampleEmail"><strong>إسم الموقع :</strong> </Label>
+                <Input onChange={(e)=>  setProductDesc(e.target.value) } value={description} type="text" name="description" id="exampleEmail" placeholder="أدخل إسم الموقع" />
+              </FormGroup>
+             </ListGroupItem>
+          </ListGroup>
         </div>
         <div className="modal-footer">
           <Button onClick={(e)=> saveProduct() } color="primary" type="button">
