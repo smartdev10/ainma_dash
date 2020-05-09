@@ -26,7 +26,21 @@ const AddProduct = (props)=> {
 
  
   const saveProduct = (e) => {
-   
+    const {currentPage} = props
+    dispatch(CreateProduct({data:{name,price,stock,description:desc}}))
+    .then(() => {
+      const offset = (currentPage - 1) * 10;
+      dispatch(fetchProducts({
+        pagination: { page : offset , perPage: offset + 10 },
+        sort: { field: 'name' , order: 'ASC' },
+        filter: {},
+      }))
+      props.toggleAddProductModal(false)
+    })
+    .catch((err)=> {
+      props.setMessage("")
+      props.toggleNotifyModal(true)
+    })
   }
 
   return (
@@ -82,7 +96,7 @@ const AddProduct = (props)=> {
                   <i className="ni ni-tag" />
                 </InputGroupText>
               </InputGroupAddon>
-              <Input onChange={(e)=>  setStock(e.target.value) } placeholder="الكمية" name="stock" type="text" />
+              <Input onChange={(e)=>  setStock(e.target.value) } placeholder="الكمية" name="stock" type="number" inputMode="numeric" />
             </InputGroup>
           </FormGroup>
 

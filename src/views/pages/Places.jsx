@@ -39,13 +39,15 @@ import { fetchPlaces , deletePlace } from "../../store/actions/places";
 import Header from "components/Headers/Header.jsx";
 import Paginations from "components/Footers/Paginations";
 import Confirm from "components/Modals/Confirm";
+import Notification from "components/Modals/Notification";
 
 
 const  Places = () => {
 
   const [confirm, setConfirmModal] = useState(false)
   const [addModal, setToggleAddModal] = useState(false)
-
+  const [notify, setNotifyModal] = useState(false)
+  const [status, setStatus] = useState("danger")
   const [currentPage , setCurrentPage] = useState(1)
   const [id, setId] = useState(null)
   const [message, setMessage] = useState("Are You Sure You want to delete this ?")
@@ -183,8 +185,9 @@ const  Places = () => {
           </Row>
           <Row>
             <div className="col">
-            <AddPlaceModal currentPage={currentPage} open={addModal} toggleAddPlaceModal={setToggleAddModal}/>
+            <AddPlaceModal setStatus={setStatus} currentPage={currentPage} open={addModal} toggleAddPlaceModal={setToggleAddModal}/>
             <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
+            <Notification  message={message}  status={status} notify={notify}  toggleNotifyModal={setNotifyModal} />
               <Card className="shadow">
                  <CardHeader className="d-flex justify-content-end border-0">
                   <h3 className="mb-0">

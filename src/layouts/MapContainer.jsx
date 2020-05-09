@@ -21,15 +21,11 @@ export class MapContainer extends React.Component {
   }
 
   static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
     zoom: 11
   };
 
-  handleClick = (event)=>{
-   console.log(event)
+  handleClick = (event,tw)=>{
+    console.log(event ,tw)
    this.setState({
     center:{
       lat:event.lat,
@@ -38,6 +34,7 @@ export class MapContainer extends React.Component {
   })
   }
   onPlacesChanged = (place) => {
+    console.log(place)
    this.setState({
      center:{
        lat:place[0].geometry.location.lat(),

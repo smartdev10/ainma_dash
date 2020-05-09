@@ -37,13 +37,16 @@ import { fetchUsers , DeleteUser } from "../../store/actions/users";
 import Header from "components/Headers/Header.jsx";
 import Paginations from "components/Footers/Paginations";
 import Confirm from "components/Modals/Confirm";
+import ShowModal from "components/Modals/ShowModal";
 
 
 const  Users = () => {
   const [confirm, setConfirmModal] = useState(false)
+  const [show , setShowModal] = useState(false)
 
   const [currentPage , setCurrentPage] = useState(1)
   const [id, setId] = useState(null)
+  const [user, setUser] = useState(null)
   const [message, setMessage] = useState("Are You Sure You want to delete this ?")
   const users = useSelector(state => state.users)
   const totalUsers = useSelector(state => state.totalUsers)
@@ -66,7 +69,7 @@ const  Users = () => {
         })
       })
     }).catch((err)=>{
-      setMessage("Document Not Deleted!!")
+      setMessage("User Not Deleted!!")
     })
   }
 
@@ -133,8 +136,8 @@ const  Users = () => {
                 type="button"
                 color="primary"
                 onClick={() =>  {
-                  setId(user._id)
-                  setConfirmModal(c => !c )
+                  setUser(user)
+                  setShowModal(c => !c )
                 }}
                 >
                 <i className="fas fa-info-circle ml-2"></i>
@@ -167,6 +170,7 @@ const  Users = () => {
           <Row>
             <div className="col">
             <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
+            <ShowModal  show={show} data={user} toggleShowModal={setShowModal} />
 
               <Card className="shadow">
                 <CardHeader className="d-flex justify-content-end border-0">

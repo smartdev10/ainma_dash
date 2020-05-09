@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState} from "react";
 // reactstrap components
 import {
   Modal,
@@ -13,10 +13,34 @@ import {
 import GoogleMap from '../../layouts/MapContainer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch } from "react-redux";
+import { CreatePlace , fetchPlaces } from "../../store/actions/places";
 
-const AddPlace = ({ toggleAddPlaceModal , open , place })=> {
+
+const AddPlace = ({setMessage , toggleNotifyModal  , currentPage, toggleAddPlaceModal , open , place })=> {
+
+
+    const [name, setName] = useState("")
+    const [type, setType] = useState("")
+    const [position, setPosition] = useState(null)
     // console.log(ride)
-
+    const dispatch = useDispatch()
+    const savePlace = ()=>{
+      dispatch(CreatePlace({data:{name,type,position}}))
+      .then(() => {
+        const offset = (currentPage - 1) * 10;
+        dispatch(fetchPlaces({
+          pagination: { page : offset , perPage: offset + 10 },
+          sort: { field: 'name' , order: 'ASC' },
+          filter: {},
+        }))
+        toggleAddPlaceModal(false)
+      })
+      .catch((err)=> {
+        setMessage("")
+        toggleNotifyModal(true)
+      })
+    }
     return (
       <>
         <Modal
@@ -45,13 +69,13 @@ const AddPlace = ({ toggleAddPlaceModal , open , place })=> {
             <ListGroupItem>
               <FormGroup>
                 <Label for="exampleEmail"><strong>إسم الموقع :</strong> </Label>
-                <Input type="text" name="name" id="exampleEmail" placeholder="أدخل إسم الموقع" />
+                <Input onChange={(e)=>  setName(e.target.value) } type="text" name="name" id="exampleEmail" placeholder="أدخل إسم الموقع" />
               </FormGroup>
              </ListGroupItem>
             <ListGroupItem>
                 <FormGroup>
                   <Label for="exampleSelect"><strong>نوع الموقع :</strong> </Label>
-                  <Input type="select" name="type" id="exampleSelect">
+                  <Input onChange={(e)=>  setType(e.target.value) } type="select" name="type" id="exampleSelect">
                     <option>مسجد</option>
                     <option>مستشفى</option>
                   </Input>
@@ -60,11 +84,11 @@ const AddPlace = ({ toggleAddPlaceModal , open , place })=> {
           </ListGroup>
           </div>
           <div >
-            <GoogleMap place={place}  style={{ height: '60%' , width:'80%' , marginRight:'15px' }} />
+            <GoogleMap setPosition={setPosition} place={place}  style={{ height: '60%' , width:'80%' , marginRight:'15px' }} />
           </div>
           <div className="modal-footer">
             <Button dir="rtl" color="primary" type="button">
-              <FontAwesomeIcon className="ml-2" icon={faSave} />
+              <FontAwesomeIcon onClick={()=> savePlace()} className="ml-2" icon={faSave} />
               حفظ
             </Button>
           </div>

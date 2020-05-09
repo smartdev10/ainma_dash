@@ -40,7 +40,7 @@ import { fetchProducts , deleteProduct } from "../../store/actions/products";
 import Header from "components/Headers/Header.jsx";
 import Paginations from "components/Footers/Paginations";
 import Confirm from "components/Modals/Confirm";
-
+import Notification from "components/Modals/Notification";
 
 const  Products = () => {
   
@@ -49,6 +49,8 @@ const  Products = () => {
   const [currentPage , setCurrentPage] = useState(1)
   const [id, setId] = useState(null)
   const [message, setMessage] = useState("Are You Sure You want to delete this ?")
+  const [notify, setNotifyModal] = useState(false)
+  const [status, setStatus] = useState("danger")
   const products = useSelector(state => state.products)
   const totalProducts = useSelector(state => state.totalProducts)
   const dispatch = useDispatch()
@@ -70,7 +72,7 @@ const  Products = () => {
         })
       })
     }).catch((err)=>{
-      setMessage("Document Not Deleted!!")
+      setMessage("Product Not Deleted!!")
     })
   }
 
@@ -185,8 +187,8 @@ const  Products = () => {
           <Row>
             <div className="col">
               <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
-              <AddProductModal currentPage={currentPage} open={addModal} toggleAddProductModal={setToggleAddModal}/>
-
+              <AddProductModal setStatus={setStatus} setMessage={setMessage} currentPage={currentPage} open={addModal} toggleNotifyModal={setNotifyModal} toggleAddProductModal={setToggleAddModal}/>
+              <Notification  message={message}  status={status} notify={notify}  toggleNotifyModal={setNotifyModal} />
               <Card className="shadow">
                 <CardHeader className="d-flex justify-content-end border-0">
                   <h3 className="mb-0">المنتجات</h3>
@@ -195,7 +197,7 @@ const  Products = () => {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col"> الاسم</th>
-                      <th scope="col">الوصف</th>
+                      <th scope="col"> الوصف</th>
                       <th scope="col" />
                     </tr>
                   </thead>
