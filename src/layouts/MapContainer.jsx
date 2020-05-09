@@ -8,24 +8,24 @@ import Marker from "./Marker";
 export class MapContainer extends React.Component {
   constructor(props) {
     super(props);
-  
+    
     this.state = {
       mapsApiLoaded: false,
       mapInstance: null,
       mapsapi: null,
-      center: {
-        lat: 59.95,
-        lng: 30.33
-      }
+      center: {...this.props.center}
     };
   }
-
+   
   static defaultProps = {
     zoom: 11
   };
 
   handleClick = (event,tw)=>{
     console.log(event ,tw)
+    this.props.setPosition({
+      coordinates:[event.lat,event.lng]
+    })
    this.setState({
     center:{
       lat:event.lat,
@@ -34,7 +34,11 @@ export class MapContainer extends React.Component {
   })
   }
   onPlacesChanged = (place) => {
-    console.log(place)
+    console.log(place[0])
+    this.props.setPosition({
+      adresse:place[0].formatted_address,
+      coordinates:[place[0].geometry.location.lat(),place[0].geometry.location.lng()]
+    })
    this.setState({
      center:{
        lat:place[0].geometry.location.lat(),

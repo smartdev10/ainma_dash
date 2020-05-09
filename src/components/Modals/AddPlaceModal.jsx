@@ -17,29 +17,36 @@ import { useDispatch } from "react-redux";
 import { CreatePlace , fetchPlaces } from "../../store/actions/places";
 
 
-const AddPlace = ({setMessage , toggleNotifyModal  , currentPage, toggleAddPlaceModal , open , place })=> {
+const AddPlace = ({setMessage , toggleNotifyModal  , currentPage, toggleAddPlaceModal , open })=> {
 
 
     const [name, setName] = useState("")
     const [type, setType] = useState("")
     const [position, setPosition] = useState(null)
-    // console.log(ride)
+
     const dispatch = useDispatch()
     const savePlace = ()=>{
-      dispatch(CreatePlace({data:{name,type,position}}))
-      .then(() => {
-        const offset = (currentPage - 1) * 10;
-        dispatch(fetchPlaces({
-          pagination: { page : offset , perPage: offset + 10 },
-          sort: { field: 'name' , order: 'ASC' },
-          filter: {},
-        }))
-        toggleAddPlaceModal(false)
-      })
-      .catch((err)=> {
-        setMessage("")
-        toggleNotifyModal(true)
-      })
+      console.log({name,type,position})
+      if(name.length > 0 && type.length > 0 && position){
+        dispatch(CreatePlace({data:{name,type,position}}))
+        .then(() => {
+          const offset = (currentPage - 1) * 10;
+          dispatch(fetchPlaces({
+            pagination: { page : offset , perPage: offset + 10 },
+            sort: { field: 'name' , order: 'ASC' },
+            filter: {},
+          }))
+          toggleAddPlaceModal(false)
+        })
+        .catch((err)=> {
+          setMessage("Couldn't Add Place")
+          toggleNotifyModal(true)
+        })
+      } 
+    }
+    const center = {
+      lat:24.774265,
+      lng:46.738586
     }
     return (
       <>
@@ -76,6 +83,7 @@ const AddPlace = ({setMessage , toggleNotifyModal  , currentPage, toggleAddPlace
                 <FormGroup>
                   <Label for="exampleSelect"><strong>نوع الموقع :</strong> </Label>
                   <Input onChange={(e)=>  setType(e.target.value) } type="select" name="type" id="exampleSelect">
+                    <option></option>
                     <option>مسجد</option>
                     <option>مستشفى</option>
                   </Input>
@@ -84,11 +92,11 @@ const AddPlace = ({setMessage , toggleNotifyModal  , currentPage, toggleAddPlace
           </ListGroup>
           </div>
           <div >
-            <GoogleMap setPosition={setPosition} place={place}  style={{ height: '60%' , width:'80%' , marginRight:'15px' }} />
+            <GoogleMap setPosition={setPosition} center={center}  style={{ height: '60%' , width:'80%' , marginRight:'15px' }} />
           </div>
           <div className="modal-footer">
-            <Button dir="rtl" color="primary" type="button">
-              <FontAwesomeIcon onClick={()=> savePlace()} className="ml-2" icon={faSave} />
+            <Button dir="rtl" onClick={()=> savePlace()} color="primary" type="button">
+              <FontAwesomeIcon  className="ml-2" icon={faSave} />
               حفظ
             </Button>
           </div>

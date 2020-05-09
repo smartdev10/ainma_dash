@@ -15,19 +15,19 @@ export const setTotalPlaces = (total) => ({
 
 export const CreatePlace = (params) => {
   return dispatch => {
-    return dataProvider("CREATE", "/places", params)
+    return dataProvider("CREATE", "places", params)
   };
 };
 
 export const updatePlace = (params) => {
     return dispatch => {
-      return dataProvider("UPDATE", "/places", params)
+      return dataProvider("UPDATE", "places", params)
     };
 };
 
 export const deletePlace = (params) => {
   return dispatch => {
-    return dataProvider("DELETE_MANY", "/places", params)
+    return dataProvider("DELETE_MANY", "places", params)
   };
 };
 
@@ -37,7 +37,7 @@ export const fetchPlaces = (params = {
   filter: {},
 }) => {
   return dispatch => {
-    return dataProvider("GET_LIST", "/places", params).then((res)=>{
+    return dataProvider("GET_LIST", "places", params).then((res)=>{
       dispatch(loadPlaces(res.places))
       dispatch(setTotalPlaces(res.total))
     }).catch(err => {
@@ -48,7 +48,7 @@ export const fetchPlaces = (params = {
 
 export const fetchOnePlace = (params) => {
     return dispatch => {
-      return dataProvider("GET_ONE", "/places", params)
+      return dataProvider("GET_ONE", "places", params)
     };
 };
 

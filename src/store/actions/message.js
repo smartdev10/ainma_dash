@@ -16,7 +16,7 @@ export const setTotalMessages = (total) => ({
 
 export const deleteMessage = (params) => {
   return dispatch => {
-    return dataProvider("DELETE_MANY", "/messages", params)
+    return dataProvider("DELETE_MANY", "messages", params)
   };
 };
 
@@ -26,7 +26,7 @@ export const fetchMessages = (params = {
   filter: {},
 }) => {
   return dispatch => {
-    return dataProvider("GET_LIST", "/messages", params).then((res)=>{
+    return dataProvider("GET_LIST", "messages", params).then((res)=>{
       dispatch(loadMessages(res.messages))
       dispatch(setTotalMessages(res.total))
     }).catch(err => {
@@ -37,7 +37,7 @@ export const fetchMessages = (params = {
 
 export const fetchOneMessage = (params) => {
     return dispatch => {
-      return dataProvider("GET_ONE", "/messages", params)
+      return dataProvider("GET_ONE", "messages", params)
     };
   };
 

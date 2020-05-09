@@ -17,13 +17,13 @@ export const setTotalOrders = (total) => ({
 
 export const updateOrder = (params) => {
     return dispatch => {
-      return dataProvider("UPDATE", "/orders", params)
+      return dataProvider("UPDATE", "orders", params)
     };
 };
 
 export const deleteOrder = (params) => {
   return dispatch => {
-    return dataProvider("DELETE_MANY", "/orders", params)
+    return dataProvider("DELETE_MANY", "orders", params)
   };
 };
 
@@ -33,7 +33,7 @@ export const fetchOrders = (params = {
   filter: {},
 }) => {
   return dispatch => {
-    return dataProvider("GET_LIST", "/orders", params).then((res)=>{
+    return dataProvider("GET_LIST", "orders", params).then((res)=>{
       dispatch(loadOrders(res.orders))
       dispatch(setTotalOrders(res.total))
     }).catch(err => {
@@ -44,7 +44,7 @@ export const fetchOrders = (params = {
 
 export const fetchOneOrder = (params) => {
     return dispatch => {
-      return dataProvider("GET_ONE", "/orders", params)
+      return dataProvider("GET_ONE", "orders", params)
     };
   };
 

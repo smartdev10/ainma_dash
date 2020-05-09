@@ -15,19 +15,19 @@ export const setTotalProducts = (total) => ({
 
 export const CreateProduct = (params) => {
   return dispatch => {
-    return dataProvider("CREATE", "/products", params)
+    return dataProvider("CREATE", "products", params)
   };
 };
 
 export const updateProduct = (params) => {
     return dispatch => {
-      return dataProvider("UPDATE", "/products", params)
+      return dataProvider("UPDATE", "products", params)
     };
 };
 
 export const deleteProduct = (params) => {
   return dispatch => {
-    return dataProvider("DELETE_MANY", "/products", params)
+    return dataProvider("DELETE_MANY", "products", params)
   };
 };
 
@@ -37,7 +37,7 @@ export const fetchProducts = (params = {
   filter: {},
 }) => {
   return dispatch => {
-    return dataProvider("GET_LIST", "/products", params).then((res)=>{
+    return dataProvider("GET_LIST", "products", params).then((res)=>{
       dispatch(loadProducts(res.products))
       dispatch(setTotalProducts(res.total))
     }).catch(err => {
@@ -48,7 +48,7 @@ export const fetchProducts = (params = {
 
 export const fetchOneproduct = (params) => {
     return dispatch => {
-      return dataProvider("GET_ONE", "/products", params)
+      return dataProvider("GET_ONE", "products", params)
     };
   };
 

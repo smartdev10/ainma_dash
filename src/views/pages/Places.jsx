@@ -40,16 +40,19 @@ import Header from "components/Headers/Header.jsx";
 import Paginations from "components/Footers/Paginations";
 import Confirm from "components/Modals/Confirm";
 import Notification from "components/Modals/Notification";
+import EditPlaceModal from "components/Modals/EditPlaceModal";
 
 
 const  Places = () => {
 
   const [confirm, setConfirmModal] = useState(false)
+  const [edit, setEditModal] = useState(false)
   const [addModal, setToggleAddModal] = useState(false)
   const [notify, setNotifyModal] = useState(false)
   const [status, setStatus] = useState("danger")
   const [currentPage , setCurrentPage] = useState(1)
   const [id, setId] = useState(null)
+  const [place, setPlace] = useState({})
   const [message, setMessage] = useState("Are You Sure You want to delete this ?")
   const places = useSelector(state => state.places)
   const totalPlaces = useSelector(state => state.totalPlaces)
@@ -138,12 +141,12 @@ const  Places = () => {
                 type="button"
                 color="primary"
                 onClick={() =>  {
-                  setId(place._id)
-                  setConfirmModal(c => !c )
+                  setPlace(place)
+                  setEditModal(c => !c )
                 }}
                 >
                 <i className="fas fa-info-circle ml-2"></i>
-                عرض
+                تعديل
                 </Button>
               </div>
             </div>
@@ -185,7 +188,8 @@ const  Places = () => {
           </Row>
           <Row>
             <div className="col">
-            <AddPlaceModal setStatus={setStatus} currentPage={currentPage} open={addModal} toggleAddPlaceModal={setToggleAddModal}/>
+            <AddPlaceModal toggleNotifyModal={setNotifyModal} setMessage={setMessage} setStatus={setStatus} currentPage={currentPage} open={addModal} toggleAddPlaceModal={setToggleAddModal}/>
+            <EditPlaceModal toggleNotifyModal={setNotifyModal} setMessage={setMessage} setStatus={setStatus} place={place} currentPage={currentPage} open={edit} toggleEditPlaceModal={setEditModal}/>
             <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
             <Notification  message={message}  status={status} notify={notify}  toggleNotifyModal={setNotifyModal} />
               <Card className="shadow">

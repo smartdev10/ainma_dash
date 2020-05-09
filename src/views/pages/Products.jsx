@@ -41,13 +41,16 @@ import Header from "components/Headers/Header.jsx";
 import Paginations from "components/Footers/Paginations";
 import Confirm from "components/Modals/Confirm";
 import Notification from "components/Modals/Notification";
+import EditProductModal from "components/Modals/EditProductModal";
 
 const  Products = () => {
   
   const [confirm, setConfirmModal] = useState(false)
+  const [edit, setEditModal] = useState(false)
   const [addModal, setToggleAddModal] = useState(false)
   const [currentPage , setCurrentPage] = useState(1)
   const [id, setId] = useState(null)
+  const [product, setProduct] = useState({})
   const [message, setMessage] = useState("Are You Sure You want to delete this ?")
   const [notify, setNotifyModal] = useState(false)
   const [status, setStatus] = useState("danger")
@@ -116,8 +119,9 @@ const  Products = () => {
                  { product.name}
                 </span>
           </th>
+          <td>{ product.stock }</td>
           <td>{ product.price }</td>
-          <td>{ product.price }</td>
+          <td>{ product.description }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">
@@ -139,12 +143,12 @@ const  Products = () => {
                 type="button"
                 color="primary"
                 onClick={() =>  {
-                  setId(product._id)
-                  setConfirmModal(c => !c )
+                  setProduct(product)
+                  setEditModal(c => !c )
                 }}
                 >
                 <i className="fas fa-info-circle ml-2"></i>
-                عرض
+                تعديل
                 </Button>
               </div>
             </div>
@@ -188,15 +192,18 @@ const  Products = () => {
             <div className="col">
               <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
               <AddProductModal setStatus={setStatus} setMessage={setMessage} currentPage={currentPage} open={addModal} toggleNotifyModal={setNotifyModal} toggleAddProductModal={setToggleAddModal}/>
+              <EditProductModal product={product} setStatus={setStatus} setMessage={setMessage} currentPage={currentPage} open={edit} toggleNotifyModal={setNotifyModal} toggleEditProductModal={setEditModal}/>
               <Notification  message={message}  status={status} notify={notify}  toggleNotifyModal={setNotifyModal} />
               <Card className="shadow">
                 <CardHeader className="d-flex justify-content-end border-0">
-                  <h3 className="mb-0">المنتجات</h3>
+                  <h3 className="mb-0"> لائحةالمنتجات </h3>
                 </CardHeader>
                 <Table dir="rtl" className="text-right" responsive>
                   <thead className="thead-light">
                     <tr>
                       <th scope="col"> الاسم</th>
+                      <th scope="col"> المخزون </th>
+                      <th scope="col"> الثمن </th>
                       <th scope="col"> الوصف</th>
                       <th scope="col" />
                     </tr>
