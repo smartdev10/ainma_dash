@@ -14,13 +14,13 @@ export const setTotalUsers = (total) => ({
 
 export const CreateUser = (params) => {
   return dispatch => {
-    return dataProvider("CREATE", "/users", params)
+    return dataProvider("CREATE", "users", params)
   };
 };
 
 export const DeleteUser = (params) => {
   return dispatch => {
-    return dataProvider("DELETE_MANY", "/users", params)
+    return dataProvider("DELETE_MANY", "users", params)
   };
 };
 
@@ -30,7 +30,7 @@ export const fetchUsers = (params = {
   filter: {},
 }) => {
   return dispatch => {
-    return dataProvider("GET_LIST", "/users", params).then((res)=>{
+    return dataProvider("GET_LIST", "users", params).then((res)=>{
       dispatch(loadUsers(res.users))
       dispatch(setTotalUsers(res.total))
     }).catch(err => {
@@ -42,6 +42,6 @@ export const fetchUsers = (params = {
 
 export const fetchOneUser = (params) => {
   return dispatch => {
-    return dataProvider("GET_ONE", "/users", params)
+    return dataProvider("GET_ONE", "users", params)
   };
 };
