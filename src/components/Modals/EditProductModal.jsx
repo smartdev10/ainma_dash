@@ -29,6 +29,10 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
   },[product])
 
  const saveProduct = () => {
+  if(isNaN(price)){
+    setMessage("المرجو ادخال الثمن")
+    toggleNotifyModal(true)
+  }else{
     dispatch(updateProduct({data:{id:product._id,name,price,description}}))
     .then(() => {
       const offset = (currentPage - 1) * 10;
@@ -43,6 +47,7 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
       setMessage("Couldn't Edit Product")
       toggleNotifyModal(true)
     })
+  } 
  }
 
  if(Object.keys(product).length === 0){
@@ -88,7 +93,7 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
              <ListGroupItem>
               <FormGroup>
                 <Label for="exampleEmail"><strong>وصف المنتج :</strong> </Label>
-                <Input onChange={(e)=>  setProductDesc(e.target.value) } value={description} type="textarea" name="description" id="exampleEmail3" placeholder="أدخل وصف المنتج" />
+                <Input style={{ height: 200 }} onChange={(e)=>  setProductDesc(e.target.value) } value={description} type="textarea" name="description" id="exampleEmail3" placeholder="أدخل وصف المنتج" />
               </FormGroup>
              </ListGroupItem>
           </ListGroup>

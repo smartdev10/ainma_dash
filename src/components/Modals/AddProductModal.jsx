@@ -15,39 +15,41 @@ import { useDispatch } from "react-redux";
 import { CreateProduct , fetchProducts } from "../../store/actions/products";
 
 
-const AddProduct = (props)=> {
+const AddProduct =({setMessage , toggleNotifyModal , toggleAddProductModal , open , product , currentPage }) => {
 
   const [name, setName] = useState("")
   const [price, setPrice] = useState("")
   const [desc, setDesc] = useState("")
   const dispatch = useDispatch()
-
-
  
-  const saveProduct = (e) => {
-    const {currentPage} = props
-    dispatch(CreateProduct({data:{name,price,description:desc}}))
-    .then(() => {
-      const offset = (currentPage - 1) * 10;
-      dispatch(fetchProducts({
-        pagination: { page : offset , perPage: offset + 10 },
-        sort: { field: 'name' , order: 'ASC' },
-        filter: {},
-      }))
-      props.toggleAddProductModal(false)
-    })
-    .catch((err)=> {
-      props.setMessage("")
-      props.toggleNotifyModal(true)
-    })
+  const saveProduct = () => {
+    if(isNaN(price)){
+      setMessage("المرجو ادخال الثمن")
+      toggleNotifyModal(true)
+    }else{
+      dispatch(CreateProduct({data:{name,price,description:desc}}))
+      .then(() => {
+        const offset = (currentPage - 1) * 10;
+        dispatch(fetchProducts({
+          pagination: { page : offset , perPage: offset + 10 },
+          sort: { field: 'name' , order: 'ASC' },
+          filter: {},
+        }))
+        toggleAddProductModal(false)
+      })
+      .catch((err)=> {
+        setMessage("")
+        toggleNotifyModal(true)
+      })
+    }
   }
 
   return (
     <>
       <Modal
         className="modal-dialog-centered"
-        isOpen={props.open}
-        toggle={() => props.toggleAddProductModal(false)}
+        isOpen={open}
+        toggle={() => toggleAddProductModal(false)}
         size="lg"
         style={{maxWidth: '1600px',  width: '80%'}}
       >
@@ -60,7 +62,7 @@ const AddProduct = (props)=> {
             className="close"
             data-dismiss="modal"
             type="button"
-            onClick={() => props.toggleAddProductModal(false)}
+            onClick={() => toggleAddProductModal(false)}
           >
             <span aria-hidden={true}>×</span>
           </button>
@@ -82,7 +84,7 @@ const AddProduct = (props)=> {
              <ListGroupItem>
               <FormGroup>
                 <Label for="exampleEmail"><strong>وصف المنتج :</strong> </Label>
-                <Input onChange={(e)=>  setDesc(e.target.value) }  type="textarea" name="description" id="exampleEmail3" placeholder="أدخل وصف المنتج" />
+                <Input style={{ height: 200 }} onChange={(e)=>  setDesc(e.target.value) }  type="textarea" name="description" id="exampleEmail3" placeholder="أدخل وصف المنتج" />
               </FormGroup>
              </ListGroupItem>
           </ListGroup>
