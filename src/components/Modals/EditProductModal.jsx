@@ -29,7 +29,7 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
     setProductName(product.name)
     setProductPrice(product.price)
     setProductDesc(product.description)
-    setPreview(`/pics/produits/${product.picture}`)
+    setPreview(`/pics/products/${product.picture}`)
   },[product])
 
   
