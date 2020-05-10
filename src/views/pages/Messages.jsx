@@ -112,7 +112,7 @@ const  Messages = () => {
                  { message.name}
                 </span>
           </th>
-          <td>{ message.phoneNumber }</td>
+          <td dir="ltr">{ message.phoneNumber }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">

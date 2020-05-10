@@ -18,7 +18,7 @@ const ShowMessage = ({message ,show ,  toggleShowModal}) => {
           size="lg"
           toggle={() => toggleShowModal(false)}
         >
-            <div  className="modal-header">
+            <div dir="rtl" className="modal-header">
                 <h4 className="modal-title" id="modal-title-default">
                 الرسالة
                 </h4>
@@ -33,7 +33,7 @@ const ShowMessage = ({message ,show ,  toggleShowModal}) => {
                 </button>
             </div>
             <div className="modal-body">
-            <Alert dir="rtl" className="text-right text-dark" color="light">
+            <Alert dir="rtl" className="text-right text-white" color="light">
               {message.message}
             </Alert>
             </div>
