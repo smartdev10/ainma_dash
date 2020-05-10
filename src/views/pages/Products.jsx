@@ -120,6 +120,7 @@ const  Products = () => {
                 </span>
           </th>
           <td>{ product.price }</td>
+          <td>{ product.description }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">
@@ -201,6 +202,7 @@ const  Products = () => {
                     <tr>
                       <th scope="col"> الاسم</th>
                       <th scope="col">  الثمن (ريال) </th>
+                      <th scope="col">  الوصف </th>
                       <th scope="col" />
                     </tr>
                   </thead>
