@@ -36,13 +36,16 @@ import { fetchMessages , deleteMessage } from "../../store/actions/message";
 import Header from "components/Headers/Header.jsx";
 import Paginations from "components/Footers/Paginations";
 import Confirm from "components/Modals/Confirm";
+import ShowMessage from "components/Modals/ShowMessage";
 
 
 const  Messages = () => {
   const [confirm, setConfirmModal] = useState(false)
+  const [show, setShowModal] = useState(false)
 
   const [currentPage , setCurrentPage] = useState(1)
   const [id, setId] = useState(null)
+  const [msg, setMsg] = useState({})
   const [message, setMessage] = useState("Are You Sure You want to delete this ?")
   const messages = useSelector(state => state.messages)
   const totalMessages = useSelector(state => state.totalMessages)
@@ -110,7 +113,6 @@ const  Messages = () => {
                 </span>
           </th>
           <td>{ message.phoneNumber }</td>
-          <td>{ message.message }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">
@@ -132,8 +134,8 @@ const  Messages = () => {
                 type="button"
                 color="primary"
                 onClick={() =>  {
-                  setId(message._id)
-                  setConfirmModal(c => !c )
+                  setMsg(message)
+                  setShowModal(c => !c )
                 }}
                 >
                 <i className="fas fa-info-circle ml-2"></i>
@@ -166,6 +168,7 @@ const  Messages = () => {
           <Row>
             <div className="col">
             <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
+            <ShowMessage message={msg}  show={show}  toggleShowModal={setShowModal} />
 
               <Card className="shadow">
                 <CardHeader className="d-flex justify-content-end border-0">
@@ -176,7 +179,6 @@ const  Messages = () => {
                     <tr>
                       <th scope="col">الاسم الكامل</th>
                       <th scope="col">رقم الجوال</th>
-                      <th scope="col">الرسالة</th>
                       <th scope="col" />
                     </tr>
                   </thead>

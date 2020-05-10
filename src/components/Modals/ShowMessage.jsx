@@ -1,61 +1,46 @@
 import React from "react";
 // reactstrap components
 import {
-  Button,
   Modal,
+  Alert
 } from "reactstrap";
 
-const ShowMessage = (props) => {
+const ShowMessage = ({message ,show ,  toggleShowModal}) => {
 
-
+  if(Object.keys(message).length === 0){
+    return null
+ }else{
     return (
       <>
         <Modal
           className="modal-dialog-centered"
-          isOpen={props.show}
+          isOpen={show}
           size="lg"
-          toggle={() => props.toggleShowModal(false)}
+          toggle={() => toggleShowModal(false)}
         >
-            <div dir="rtl"  className="modal-header">
+            <div  className="modal-header">
                 <h4 className="modal-title" id="modal-title-default">
-                Your attention is required
+                الرسالة
                 </h4>
                 <button
                 aria-label="Close"
                 className="close"
                 data-dismiss="modal"
                 type="button"
-                onClick={() => props.toggleShowModal(false)}
+                onClick={() => toggleShowModal(false)}
                 >
                 <span aria-hidden={true}>×</span>
                 </button>
             </div>
             <div className="modal-body">
-               
+            <Alert dir="rtl" className="text-right text-dark" color="light">
+              {message.message}
+            </Alert>
             </div>
-                <div className="modal-footer">
-                <Button
-                    className="btn btn-white"
-                    type="button"
-                    onClick={() => {
-                    }}
-                    >
-                     Save
-                    </Button>
-
-                    <Button
-                    className="btn btn-link text-white ml-auto"
-                    color="link"
-                    data-dismiss="modal"
-                    type="button"
-                    onClick={() => props.toggleConfirmModal(false)}
-                    >
-                    Close
-                    </Button>
-                </div>
         </Modal>
       </>
     );
+ }
 }
 
 export default ShowMessage;
