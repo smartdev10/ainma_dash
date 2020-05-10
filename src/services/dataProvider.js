@@ -53,7 +53,7 @@ export function dataProvider(type , path , params) {
         break;
     } 
     case "UPDATE":
-        url = `${path}/${params.data.id}`;
+        url = `${path}/${params.id}`;
         method = 'PUT';
         data = params.data;
         break;

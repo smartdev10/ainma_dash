@@ -28,7 +28,7 @@ const EditPlace = ({setMessage , toggleNotifyModal , toggleEditPlaceModal , open
       setPosition(place.position)
     },[place])
     const savePlace = () => {
-        dispatch(updatePlace({data:{id:place._id,name,type,position}}))
+        dispatch(updatePlace({id:place._id ,data:{name,type,position}}))
         .then(() => {
           const offset = (currentPage - 1) * 10;
           dispatch(fetchPlaces({

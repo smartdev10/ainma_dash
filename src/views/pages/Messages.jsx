@@ -110,6 +110,7 @@ const  Messages = () => {
                 </span>
           </th>
           <td>{ message.phoneNumber }</td>
+          <td>{ message.message }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
             <div className="d-flex align-items-center">

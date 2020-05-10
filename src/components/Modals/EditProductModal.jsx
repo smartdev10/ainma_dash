@@ -7,7 +7,8 @@ import {
   FormGroup,
   ListGroup,
   ListGroupItem,
-  Label
+  Label,
+  FormText
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
@@ -20,20 +21,39 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
   const [name, setProductName] = useState("")
   const [price, setProductPrice] = useState("")
   const [description, setProductDesc] = useState("")
+  const [preview, setPreview] = useState("")
+  const [image, setImage] = useState({})
   const dispatch = useDispatch()
 
   useEffect(()=>{
     setProductName(product.name)
     setProductPrice(product.price)
     setProductDesc(product.description)
+    setPreview(`/pics/produits/${product.picture}`)
   },[product])
+
+  
+  const onChange = e => {
+    const files = Array.from(e.target.files)
+    if(files.length > 0){
+      setImage(files[0])
+      const objectUrl = URL.createObjectURL(files[0])
+      setPreview(objectUrl)
+    }
+  }
 
  const saveProduct = () => {
   if(isNaN(price)){
     setMessage("المرجو ادخال الثمن")
     toggleNotifyModal(true)
   }else{
-    dispatch(updateProduct({data:{id:product._id,name,price,description}}))
+    const formdata = new FormData()
+    formdata.append("product_image", image);
+    formdata.append("id", product._id);
+    formdata.append("name", name);
+    formdata.append("price", price);
+    formdata.append("description", description);
+    dispatch(updateProduct({id:formdata.get("id"),data:formdata}))
     .then(() => {
       const offset = (currentPage - 1) * 10;
       dispatch(fetchProducts({
@@ -80,21 +100,33 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
         <ListGroup className="text-right" dir="rtl">
             <ListGroupItem>
               <FormGroup>
-                <Label for="exampleEmail"><strong>إسم المنتج :</strong> </Label>
-                <Input onChange={(e)=>  setProductName(e.target.value) } value={name} type="text" name="name" id="exampleEmail1" placeholder="أدخل إسم المنتج" />
+                <Label for="name"><strong>إسم المنتج :</strong> </Label>
+                <Input onChange={(e)=>  setProductName(e.target.value) } value={name} type="text" name="name" id="name" placeholder="أدخل إسم المنتج" />
               </FormGroup>
              </ListGroupItem>
              <ListGroupItem>
               <FormGroup>
-                <Label for="exampleEmail"><strong>ثمن المنتج :</strong> </Label>
-                <Input onChange={(e)=>  setProductPrice(e.target.value) } value={price} type="text" name="price" id="exampleEmail2" placeholder="أدخل ثمن المنتج" />
+                <Label for="description"><strong>وصف المنتج :</strong> </Label>
+                <Input style={{ height: 200 }} onChange={(e)=>  setProductDesc(e.target.value) } value={description} type="textarea" name="description" id="description" placeholder="أدخل وصف المنتج" />
               </FormGroup>
              </ListGroupItem>
              <ListGroupItem>
               <FormGroup>
-                <Label for="exampleEmail"><strong>وصف المنتج :</strong> </Label>
-                <Input style={{ height: 200 }} onChange={(e)=>  setProductDesc(e.target.value) } value={description} type="textarea" name="description" id="exampleEmail3" placeholder="أدخل وصف المنتج" />
+                <Label for="price"><strong>ثمن المنتج :</strong> </Label>
+                <Input onChange={(e)=>  setProductPrice(e.target.value) } value={price} type="text" name="price" id="price" placeholder="أدخل ثمن المنتج" />
               </FormGroup>
+             </ListGroupItem>
+             <ListGroupItem>
+                <FormGroup>
+                  <Label for="image"> صورة المنتوج</Label>
+                  <Input onChange={onChange} type="file" name="product_image" id="exampleFile" />
+                  <FormText color="muted">
+                  أدخل صورة المنتوج
+                  </FormText>
+                </FormGroup>
+             </ListGroupItem>
+             <ListGroupItem>
+                 <img className="img-fluid" src={preview} alt="" />
              </ListGroupItem>
           </ListGroup>
         </div>

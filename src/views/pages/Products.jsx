@@ -194,7 +194,7 @@ const  Products = () => {
               <Notification  message={message}  status={status} notify={notify}  toggleNotifyModal={setNotifyModal} />
               <Card className="shadow">
                 <CardHeader className="d-flex justify-content-end border-0">
-                  <h3 className="mb-0"> لائحةالمنتجات </h3>
+                  <h3 className="mb-0"> لائحة المنتجات </h3>
                 </CardHeader>
                 <Table dir="rtl" className="text-right" responsive>
                   <thead className="thead-light">
