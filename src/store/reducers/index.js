@@ -4,6 +4,7 @@ import {messages, totalMessages} from "./messages";
 import {places, totalPlaces} from "./places";
 import {orders, totalOrders} from "./orders";
 import {products , totalProducts} from "./products";
+import {banks , totalBanks} from "./banks";
 import {loading} from "./isloading";
 import {fetching} from "./isFetchingToken";
 import {loggingout} from "./isLoggingOut"
@@ -15,8 +16,10 @@ const rootReducer = combineReducers({
   places,
   orders,
   products,
+  banks,
 
   totalProducts,
+  totalBanks,
   totalMessages,
   totalUsers,
   totalPlaces,

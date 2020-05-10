@@ -39,7 +39,7 @@ const EditPlace = ({setMessage , toggleNotifyModal , toggleEditPlaceModal , open
           toggleEditPlaceModal(false)
         })
         .catch((err)=> {
-          setMessage("Couldn't Edit Place")
+          setMessage("حدث عطل اثناء التعديل")
           toggleNotifyModal(true)
         })
     }

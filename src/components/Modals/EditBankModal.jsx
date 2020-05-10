@@ -13,24 +13,24 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from "react-redux";
-import { updateProduct , fetchProducts } from "../../store/actions/products";
+import { updateBank , fetchBanks } from "../../store/actions/banks";
 
 
-const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , open , product , currentPage })=> {
+const EditBank =({setMessage , toggleNotifyModal , toggleEditBankModal , open , bank , currentPage })=> {
 
-  const [name, setProductName] = useState("")
-  const [price, setProductPrice] = useState("")
-  const [description, setProductDesc] = useState("")
+  const [name, setBankName] = useState("")
+  const [accountNumber, setBankAccNumber] = useState("")
+  const [ibanNumber, setIbanNumber] = useState("")
   const [preview, setPreview] = useState("")
   const [image, setImage] = useState({})
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    setProductName(product.name)
-    setProductPrice(product.price)
-    setProductDesc(product.description)
-    setPreview(`/pics/products/${product.picture}`)
-  },[product])
+    setBankName(bank.name)
+    setBankAccNumber(bank.accountNumber)
+    setIbanNumber(bank.ibanNumber)
+    setPreview(`/pics/banks/${bank.picture}`)
+  },[bank])
 
   
   const onChange = e => {
@@ -42,35 +42,30 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
     }
   }
 
- const saveProduct = () => {
-  if(isNaN(price)){
-    setMessage("المرجو ادخال الثمن")
-    toggleNotifyModal(true)
-  }else{
+ const saveBank = () => {
     const formdata = new FormData()
-    formdata.append("product_image", image);
-    formdata.append("id", product._id);
+    formdata.append("bank_image", image);
+    formdata.append("id", bank._id);
     formdata.append("name", name);
-    formdata.append("price", price);
-    formdata.append("description", description);
-    dispatch(updateProduct({id:formdata.get("id"),data:formdata}))
+    formdata.append("accountNumber", accountNumber);
+    formdata.append("ibanNumber", ibanNumber);
+    dispatch(updateBank({id:formdata.get("id"),data:formdata}))
     .then(() => {
       const offset = (currentPage - 1) * 10;
-      dispatch(fetchProducts({
+      dispatch(fetchBanks({
         pagination: { page : offset , perPage: offset + 10 },
         sort: { field: 'name' , order: 'ASC' },
         filter: {},
       }))
-      toggleEditProductModal(false)
+      toggleEditBankModal(false)
     })
     .catch((err)=> {
       setMessage("حدث عطل اثناء التعديل")
       toggleNotifyModal(true)
     })
-  } 
  }
 
- if(Object.keys(product).length === 0){
+ if(Object.keys(bank).length === 0){
   return null
 }else{
   return (
@@ -78,20 +73,20 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
       <Modal
         className="modal-dialog-centered"
         isOpen={open}
-        toggle={() => toggleEditProductModal(false)}
+        toggle={() => toggleEditBankModal(false)}
         size="lg"
         style={{maxWidth: '1600px',  width: '80%'}}
       >
         <div className="modal-header">
           <h4 className="modal-title" id="modal-title-default">
-          تعديل المنتج 
+          تعديل البنك 
           </h4>
           <button
             aria-label="Close"
             className="close"
             data-dismiss="modal"
             type="button"
-            onClick={() => toggleEditProductModal(false)}
+            onClick={() => toggleEditBankModal(false)}
           >
             <span aria-hidden={true}>×</span>
           </button>
@@ -100,28 +95,28 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
         <ListGroup className="text-right" dir="rtl">
             <ListGroupItem>
               <FormGroup>
-                <Label for="name"><strong>إسم المنتج :</strong> </Label>
-                <Input onChange={(e)=>  setProductName(e.target.value) } value={name} type="text" name="name" id="name" placeholder="أدخل إسم المنتج" />
+                <Label for="name"><strong>إسم البنك :</strong> </Label>
+                <Input onChange={(e)=>  setBankName(e.target.value) } value={name} type="text" name="name" id="name" placeholder="أدخل إسم البنك" />
               </FormGroup>
              </ListGroupItem>
              <ListGroupItem>
               <FormGroup>
-                <Label for="description"><strong>وصف المنتج :</strong> </Label>
-                <Input style={{ height: 200 }} onChange={(e)=>  setProductDesc(e.target.value) } value={description} type="textarea" name="description" id="description" placeholder="أدخل وصف المنتج" />
+                <Label for="description"><strong>رقم الحساب :</strong> </Label>
+                <Input onChange={(e)=>  setBankAccNumber(e.target.value) } value={accountNumber} type="text" name="accountNumber" id="accountNumber" placeholder="أدخل رقم الحساب" />
               </FormGroup>
              </ListGroupItem>
              <ListGroupItem>
               <FormGroup>
-                <Label for="price"><strong>ثمن المنتج (أرقام فقط) :</strong> </Label>
-                <Input onChange={(e)=>  setProductPrice(e.target.value) } value={price} type="text" name="price" id="price" placeholder="أدخل ثمن المنتج" />
+                <Label for="description"><strong>رقم الايبان :</strong> </Label>
+                <Input onChange={(e)=>  setIbanNumber(e.target.value) } value={ibanNumber} type="text" name="accountNumber" id="accountNumber" placeholder="أدخل رقم الايبان" />
               </FormGroup>
              </ListGroupItem>
              <ListGroupItem>
                 <FormGroup>
-                  <Label for="image"> صورة المنتوج</Label>
-                  <Input onChange={onChange} type="file" name="product_image" id="exampleFile" />
+                  <Label for="image"> صورة البنك</Label>
+                  <Input onChange={onChange} type="file" name="bank_image" id="exampleFile" />
                   <FormText color="muted">
-                  أدخل صورة المنتوج
+                  أدخل صورة البنك
                   </FormText>
                 </FormGroup>
              </ListGroupItem>
@@ -131,7 +126,7 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
           </ListGroup>
         </div>
         <div className="modal-footer">
-          <Button onClick={(e)=> saveProduct() } color="primary" type="button">
+          <Button onClick={(e)=> saveBank() } color="primary" type="button">
             <FontAwesomeIcon className="mr-2" icon={faSave} />
             تعديل
           </Button>
@@ -143,4 +138,4 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
 }
 
 
-export default EditProduct
+export default EditBank

@@ -18,6 +18,7 @@
 import Index from "views/Index";
 import Login from "views/pages/Login";
 import Messages from "views/pages/Messages";
+import Banks from "views/pages/Banks";
 import Places from "views/pages/Places";
 import Orders from "views/pages/Orders";
 import Products from "views/pages/Products";
@@ -46,13 +47,6 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/messages",
-    name: "الرسائل ",
-    icon: "ni ni-chat-round text-success",
-    component: Messages,
-    layout: "/admin"
-  },
-  {
     path: "/products",
     name: "المنتجات ",
     icon: "ni ni-bag-17 text-info",
@@ -64,6 +58,20 @@ var routes = [
     name: "الطلبات ",
     icon: "ni ni-delivery-fast text-warning",
     component: Orders,
+    layout: "/admin"
+  },
+  {
+    path: "/messages",
+    name: "الرسائل ",
+    icon: "ni ni-chat-round text-success",
+    component: Messages,
+    layout: "/admin"
+  },
+  {
+    path: "/banks",
+    name: "الأبناك ",
+    icon: "ni ni-paper-diploma text-info",
+    component: Banks,
     layout: "/admin"
   },
   {

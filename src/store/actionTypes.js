@@ -9,6 +9,7 @@ export const LOAD_USERS ="LOAD_USERS";
 export const LOAD_ORDERS ="LOAD_ORDERS";
 export const LOAD_MESSAGES ="LOAD_MESSAGES";
 export const LOAD_PLACES ="LOAD_PLACES";
+export const LOAD_BANKS ="LOAD_BANKS";
 
 
 export const GET_TOTAL_PRODUCTS ="GET_TOTAL_PRODUCTS";
@@ -16,6 +17,7 @@ export const GET_TOTAL_ORDERS ="GET_TOTAL_ORDERS";
 export const GET_TOTAL_USERS ="GET_TOTAL_USERS";
 export const GET_TOTAL_PLACES ="GET_TOTAL_PLACES";
 export const GET_TOTAL_MESSAGES ="GET_TOTAL_MESSAGES";
+export const GET_TOTAL_BANKS ="GET_TOTAL_BANKS";
 
 
 
