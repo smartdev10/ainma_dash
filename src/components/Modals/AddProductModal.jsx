@@ -103,7 +103,7 @@ const AddProduct =({setMessage , toggleNotifyModal , toggleAddProductModal , ope
              </ListGroupItem>
              <ListGroupItem>
               <FormGroup>
-                <Label for="exampleEmail"><strong>ثمن المنتج :</strong> </Label>
+                <Label for="exampleEmail"><strong>ثمن المنتج (أرقام فقط) :</strong> </Label>
                 <Input onChange={(e)=>  setPrice(e.target.value) }  type="text" name="price" id="exampleEmail2" placeholder="أدخل ثمن المنتج" />
               </FormGroup>
              </ListGroupItem>

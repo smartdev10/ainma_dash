@@ -119,7 +119,7 @@ const  Products = () => {
                  { product.name}
                 </span>
           </th>
-          <td>{ product.price }</td>
+          <td>{ product.price +  ' ريال' } </td>
           <td>{ product.description }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td>
@@ -201,7 +201,7 @@ const  Products = () => {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col"> الاسم</th>
-                      <th scope="col">  الثمن (ريال) </th>
+                      <th scope="col">  الثمن  </th>
                       <th scope="col">  الوصف </th>
                       <th scope="col" />
                     </tr>

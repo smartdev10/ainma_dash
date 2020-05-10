@@ -112,7 +112,7 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
              </ListGroupItem>
              <ListGroupItem>
               <FormGroup>
-                <Label for="price"><strong>ثمن المنتج :</strong> </Label>
+                <Label for="price"><strong>ثمن المنتج (أرقام فقط) :</strong> </Label>
                 <Input onChange={(e)=>  setProductPrice(e.target.value) } value={price} type="text" name="price" id="price" placeholder="أدخل ثمن المنتج" />
               </FormGroup>
              </ListGroupItem>
