@@ -4,7 +4,6 @@ import {
   Modal,
   ListGroup,
   ListGroupItem,
-  Badge
 } from "reactstrap";
 
 const ShowModal = ({show , toggleShowModal , order}) => {
@@ -43,7 +42,7 @@ const ShowModal = ({show , toggleShowModal , order}) => {
              <strong>  المنتجات </strong>
                  {order.items.map(item =>{
                   return (
-                    <ListGroup>
+                    <ListGroup key={item._id}>
                       <ListGroupItem >
                         <strong>إسم المنتج</strong> : {item.product.name} 
                       </ListGroupItem>

@@ -72,7 +72,7 @@ const Login = (props) => {
             {loginError && (
             <UncontrolledAlert className="m-2 text-center" color="danger" fade={false}>
               <span className="alert-inner--text">
-                Incorrect email or password.
+              كلمة السر او اسم الحساب غير صحيح
               </span>
             </UncontrolledAlert>
             )}
@@ -85,7 +85,7 @@ const Login = (props) => {
                         <i className="ni ni-email-83" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Username" name="username" type="text" />
+                    <Input dir="rtl" placeholder="اسم الحساب" name="username" type="text" />
                   </InputGroup>
                 </FormGroup>
                 <FormGroup>
@@ -95,7 +95,7 @@ const Login = (props) => {
                         <i className="ni ni-lock-circle-open" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Password" name="password" type="password" />
+                    <Input dir="rtl"  placeholder="كلمة السر" name="password" type="password" />
                   </InputGroup>
                 </FormGroup>
                 <div className="custom-control custom-control-alternative custom-checkbox">
@@ -108,12 +108,12 @@ const Login = (props) => {
                     className="custom-control-label"
                     htmlFor=" customCheckLogin"
                   >
-                    <span className="text-muted">Remember me</span>
+                    {/* <span className="text-muted">Remember me</span> */}
                   </label>
                 </div>
                 <div className="text-center">
                   <Button className="my-4" color="primary" type="submit">
-                  {loading ? 'logging in...' : 'Login'}
+                  {loading ? 'جاري الدخول...' : 'تسجيل الدخول'}
                   </Button>
                 </div>
               </Form>

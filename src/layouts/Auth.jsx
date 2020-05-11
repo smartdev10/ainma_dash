@@ -57,7 +57,7 @@ class Auth extends React.Component {
               <div className="header-body text-center mb-7">
                 <Row className="justify-content-center">
                   <Col lg="5" md="6">
-                    <h1 className="text-white">Welcome To Rider App Dashboard!</h1>
+                    <h1 className="text-white"> داشبورد إرواء و إنماء</h1>
                   </Col>
                 </Row>
               </div>
