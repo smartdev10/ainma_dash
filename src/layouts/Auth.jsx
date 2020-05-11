@@ -18,7 +18,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 // reactstrap components
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row } from "reactstrap";
 
 // core components
 // import AuthNavbar from "components/Navbars/AuthNavbar.jsx";
@@ -54,11 +54,9 @@ class Auth extends React.Component {
         <div className="main-content">
           <div className="header bg-gradient-info py-7 py-lg-8">
             <Container>
-              <div className="header-body text-center mb-7">
-                <Row className="justify-content-center">
-                  <Col lg="5" md="6">
-                    <h1 className="text-white"> داشبورد إرواء و إنماء</h1>
-                  </Col>
+              <div className="header-body text-center">
+                <Row className="justify-content-center mb-0">
+                    <img  style={{maxHeight:"15rem"}} src={require("assets/img/logo.png")} alt="logo"/>
                 </Row>
               </div>
             </Container>
