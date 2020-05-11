@@ -46,7 +46,7 @@ const  Messages = () => {
   const [currentPage , setCurrentPage] = useState(1)
   const [id, setId] = useState(null)
   const [msg, setMsg] = useState({})
-  const [message, setMessage] = useState("Are You Sure You want to delete this ?")
+  const [message, setMessage] = useState("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
   const messages = useSelector(state => state.messages)
   const totalMessages = useSelector(state => state.totalMessages)
   const dispatch = useDispatch()
@@ -54,9 +54,9 @@ const  Messages = () => {
   const deleteAction = (id) => {
     const offset = (currentPage - 1) * 10;
 
-    setMessage("Deleting...")
+    setMessage("جاري الحذف....")
     dispatch(deleteMessage({ids:[id]})).then(()=>{
-      setMessage("Deleted with Success")
+      setMessage("تمت العملية بنجاح !")
       dispatch(fetchMessages({
         pagination: { page : offset , perPage: offset + 10 },
         sort: { field: 'name' , order: 'ASC' },
@@ -64,11 +64,11 @@ const  Messages = () => {
       })).then(()=>{
         delay(1000).then(()=>{
           setConfirmModal(false)
-          setMessage("Are You Sure You want to delete this ?")
+          setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
         })
       })
     }).catch((err)=>{
-      setMessage("Document Not Deleted!!")
+      setMessage("  لم تتم العملية بنجاح !")
     })
   }
 

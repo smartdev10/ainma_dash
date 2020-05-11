@@ -33,31 +33,50 @@ import {delay} from "utils/";
 
 // core components
 import { useSelector, useDispatch} from "react-redux";
-import { fetchOrders , deleteOrder } from "../../store/actions/orders";
+import { fetchOrders , deleteOrder , updateOrder } from "../../store/actions/orders";
 import Header from "components/Headers/Header.jsx";
 import Paginations from "components/Footers/Paginations";
 import Confirm from "components/Modals/Confirm";
 import ShowModal from "components/Modals/ShowModal";
-
+import Notification from "components/Modals/Notification";
+import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 
 const  Orders = () => {
   const [confirm, setConfirmModal] = useState(false)
   const [show, setShowModal] = useState(false)
-
+  const [notify, setNotifyModal] = useState(false)
   const [currentPage , setCurrentPage] = useState(1)
   const [id, setId] = useState(null)
   const [order, setOrder] = useState({})
-  const [message, setMessage] = useState("Are You Sure You want to delete this ?")
+  const [message, setMessage] = useState("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
+  const [status, setStatus] = useState("danger")
   const orders = useSelector(state => state.orders)
   const totalOrders = useSelector(state => state.totalOrders)
   const dispatch = useDispatch()
 
+  const updatedStatus = (data) => {
+    dispatch(updateOrder(data)).then(()=>{
+      dispatch(fetchOrders()).then(()=>{
+        setStatus("success")
+        setMessage(`تم تحديث حالة الطلب`)
+        setNotifyModal(true)
+        delay(2000).then(()=>{
+          setNotifyModal(false)
+          setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
+        })
+      })
+    }).catch((err)=>{
+        setStatus("danger")
+        setMessage(`  لم تتم العملية بنجاح !`)
+        setNotifyModal(true)
+    })
+  }
+
   const deleteAction = (id) => {
     const offset = (currentPage - 1) * 10;
-
-    setMessage("Deleting...")
+    setMessage("جاري الحذف....")
     dispatch(deleteOrder({ids:[id]})).then(()=>{
-      setMessage("Deleted with Success")
+      setMessage("تمت العملية بنجاح !")
       dispatch(fetchOrders({
         pagination: { page : offset , perPage: offset + 10 },
         sort: { field: 'name' , order: 'ASC' },
@@ -65,11 +84,11 @@ const  Orders = () => {
       })).then(()=>{
         delay(1000).then(()=>{
           setConfirmModal(false)
-          setMessage("Are You Sure You want to delete this ?")
+          setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
         })
       })
     }).catch((err)=>{
-      setMessage("Document Not Deleted!!")
+      setMessage("  لم تتم العملية بنجاح !")
     })
   }
 
@@ -119,6 +138,28 @@ const  Orders = () => {
           <td className="align-middle">{ order.gift_receiver  ? order.gift_receiver : "غير وارد"  }</td>
           <td className="align-middle">{ order.gift_receiver_phone_number   ? order.gift_receiver_phone_number : "غير وارد" }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
+          <td>
+          <BootstrapSwitchButton
+            checked={order.status === "done" ? true : order.status === "process" ? false : false}
+            onlabel='تم تسليم الطلب'
+            onstyle='success'
+            offlabel='تم استلام الطلب'
+            offstyle='info'
+            size="sm"
+            width={150}
+            onChange={(checked) => {
+              console.log(checked)
+              let status;
+              checked ? status="done" : status ="process"
+              updatedStatus({ 
+                 id:order._id,
+                 data:{
+                  status
+                 }
+              })
+            }}
+        />
+          </td>
           <td className="align-middle">
             <div className="d-flex align-items-center">
               <div className="ml-2">
@@ -173,6 +214,7 @@ const  Orders = () => {
           <Row>
             <div className="col">
               <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
+              <Notification  message={message}  status={status} notify={notify}  toggleNotifyModal={setNotifyModal} />
               <ShowModal message={message} order={order} show={show}  toggleShowModal={setShowModal} />
               <Card className="shadow">
                 <CardHeader className="d-flex justify-content-end border-0">

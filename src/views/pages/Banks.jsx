@@ -52,7 +52,7 @@ const  Products = () => {
   const [currentPage , setCurrentPage] = useState(1)
   const [id, setId] = useState(null)
   const [bank, setBank] = useState({})
-  const [message, setMessage] = useState("Are You Sure You want to delete this ?")
+  const [message, setMessage] = useState("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
   const [notify, setNotifyModal] = useState(false)
   const [status, setStatus] = useState("danger")
   const banks = useSelector(state => state.banks)
@@ -62,9 +62,9 @@ const  Products = () => {
   const deleteAction = (id) => {
     const offset = (currentPage - 1) * 10;
 
-    setMessage("Deleting...")
+    setMessage("جاري الحذف....")
     dispatch(deleteBank({ids:[id]})).then(()=>{
-      setMessage("Deleted with Success")
+      setMessage("تمت العملية بنجاح !")
       dispatch(fetchBanks({
         pagination: { page : offset , perPage: offset + 10 },
         sort: { field: 'name' , order: 'ASC' },
@@ -72,11 +72,11 @@ const  Products = () => {
       })).then(()=>{
         delay(1000).then(()=>{
           setConfirmModal(false)
-          setMessage("Are You Sure You want to delete this ?")
+          setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
         })
       })
     }).catch((err)=>{
-      setMessage("Product Not Deleted!!")
+      setMessage("  لم تتم العملية بنجاح !")
     })
   }
 

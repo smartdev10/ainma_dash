@@ -11,6 +11,7 @@ const Notification = (props) => {
     return (
       <>
         <Modal
+          dir="rtl"
           className={`modal-dialog-centered modal-${props.status}`}
           isOpen={props.notify}
           toggle={() => {

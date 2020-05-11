@@ -11,6 +11,7 @@ const Confirm = (props) => {
     return (
       <>
         <Modal
+        dir="rtl"
           className="modal-dialog-centered modal-danger"
           isOpen={props.confirm}
           toggle={() => props.toggleConfirmModal(false)}
@@ -18,7 +19,7 @@ const Confirm = (props) => {
          <div className="modal-content bg-gradient-danger">
             <div className="modal-header">
                 <h4 className="modal-title" id="modal-title-default">
-                Your attention is required
+                المرجو الإنتباه !
                 </h4>
                 <button
                 aria-label="Close"
@@ -33,7 +34,6 @@ const Confirm = (props) => {
             <div className="modal-body">
                 <div className="py-3 text-center">
                     <i className="ni ni-bell-55 ni-3x"></i>
-                    <h4 className="heading mt-4">You should read this!</h4>
                     <p>{props.message}</p>
                 </div>
             </div>
@@ -45,7 +45,7 @@ const Confirm = (props) => {
                         props.confirmAction(props.id)
                     }}
                     >
-                    Yes I am Sure
+                   نعم
                     </Button>
 
                     <Button
@@ -55,7 +55,7 @@ const Confirm = (props) => {
                     type="button"
                     onClick={() => props.toggleConfirmModal(false)}
                     >
-                    Close
+                    إلغاء
                     </Button>
                 </div>
           </div>

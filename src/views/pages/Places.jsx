@@ -53,7 +53,7 @@ const  Places = () => {
   const [currentPage , setCurrentPage] = useState(1)
   const [id, setId] = useState(null)
   const [place, setPlace] = useState({})
-  const [message, setMessage] = useState("Are You Sure You want to delete this ?")
+  const [message, setMessage] = useState("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
   const places = useSelector(state => state.places)
   const totalPlaces = useSelector(state => state.totalPlaces)
   const dispatch = useDispatch()
@@ -61,9 +61,9 @@ const  Places = () => {
   const deleteAction = (id) => {
     const offset = (currentPage - 1) * 10;
 
-    setMessage("Deleting...")
+    setMessage("جاري الحذف....")
     dispatch(deletePlace({ids:[id]})).then(()=>{
-      setMessage("Deleted with Success")
+      setMessage("تمت العملية بنجاح !")
       dispatch(fetchPlaces({
         pagination: { page : offset , perPage: offset + 10 },
         sort: { field: 'name' , order: 'ASC' },
@@ -71,11 +71,11 @@ const  Places = () => {
       })).then(()=>{
         delay(1000).then(()=>{
           setConfirmModal(false)
-          setMessage("Are You Sure You want to delete this ?")
+          setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
         })
       })
     }).catch((err)=>{
-      setMessage("Document Not Deleted!!")
+      setMessage("  لم تتم العملية بنجاح !")
     })
   }
 
