@@ -116,7 +116,7 @@ const  Products = () => {
         return (
           <tr  key={bank._id}>
              <td className="align-middle">
-              <img style={{ objectFit:"contain" }}  width="30%" className="img-thumbnail" src={`http://54.88.189.39/pics/banks/${bank.picture}`} alt=""/>
+              <img style={{ objectFit:"contain" }}  width="64%" className="img-thumbnail" src={`http://54.88.189.39/pics/banks/${bank.picture}`} alt=""/>
              </td>
           <th className="align-middle" scope="row">
                 <span className="mb-0 text-sm">
