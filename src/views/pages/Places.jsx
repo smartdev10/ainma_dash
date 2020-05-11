@@ -114,14 +114,14 @@ const  Places = () => {
       return places.map((place) => {
         return (
           <tr key={place._id}>
-          <th scope="row">
+          <th className="align-middle" scope="row">
                 <span className="mb-0 text-sm">
                  { place.name}
                 </span>
           </th>
-          <td>{ place.type }</td>
+          <td className="align-middle">{ place.type }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
-          <td>
+          <td className="align-middle">
              <div className="d-flex align-items-center">
               <div className="ml-2">
                 <Button

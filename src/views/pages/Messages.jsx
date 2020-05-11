@@ -107,14 +107,14 @@ const  Messages = () => {
       return messages.map((message) => {
         return (
           <tr key={message._id}>
-          <th scope="row">
+          <th className="align-middle" scope="row">
                 <span className="mb-0 text-sm">
                  { message.name}
                 </span>
           </th>
-          <td dir="ltr">{ message.phoneNumber }</td>
+          <td className="align-middle" dir="ltr">{ message.phoneNumber }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
-          <td>
+          <td className="align-middle" >
             <div className="d-flex align-items-center">
               <div className="ml-2">
                 <Button

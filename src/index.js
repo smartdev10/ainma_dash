@@ -34,11 +34,11 @@ import App from "App";
 
 const cookies = new Cookies();
 const store = configureStore();
-if (cookies.get('rider_access')) {
+if (cookies.get('ainma_access')) {
 
   // prevent someone from manually tampering with the key of jwtToken in localStorage
   try {
-    store.dispatch(setCurrentUser(jwtDecode(cookies.get('rider_access'))));
+    store.dispatch(setCurrentUser(jwtDecode(cookies.get('ainma_access'))));
   } catch (e) {
     store.dispatch(userLogout({data:{userId:localStorage.getItem("uuid")}}))
     .then((res)=>{

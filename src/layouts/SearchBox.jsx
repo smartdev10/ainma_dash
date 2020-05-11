@@ -16,7 +16,7 @@ class SearchBox extends Component {
   };
 
   static defaultProps = {
-    placeholder: 'Search...',
+    placeholder: 'ابحث...',
     onPlacesChanged: null,
   };
 
@@ -64,7 +64,7 @@ class SearchBox extends Component {
           width: '392px',
           height: '48px',
           fontSize: '20px',
-          padding: '12px 104px 11px 64px',
+          padding: '12px',
         }}
       />
     );

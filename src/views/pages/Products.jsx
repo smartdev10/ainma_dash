@@ -114,15 +114,15 @@ const  Products = () => {
       return products.map((product) => {
         return (
           <tr key={product._id}>
-          <th scope="row">
+          <th className="align-middle" scope="row">
                 <span className="mb-0 text-sm">
                  { product.name}
                 </span>
           </th>
-          <td>{ product.price +  ' ريال' } </td>
-          <td>{ product.description }</td>
+          <td className="align-middle">{ product.price +  ' ريال' } </td>
+          <td className="align-middle">{ product.description }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
-          <td>
+          <td className="align-middle">
             <div className="d-flex align-items-center">
               <div className="ml-2">
                 <Button

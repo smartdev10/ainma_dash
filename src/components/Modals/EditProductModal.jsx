@@ -72,7 +72,7 @@ const EditProduct =({setMessage , toggleNotifyModal , toggleEditProductModal , o
 
  if(Object.keys(product).length === 0){
   return null
-}else{
+ }else{
   return (
     <>
       <Modal

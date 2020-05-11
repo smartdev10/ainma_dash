@@ -7,7 +7,7 @@ export const AdminProtectedRoute = ({ component: Component,isAuthenticated,role,
       {...rest}
       render={props => {
         
-        if (true) {
+        if (isAuthenticated) {
           return(
             <Component {...props } />
           )

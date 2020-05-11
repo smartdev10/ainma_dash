@@ -52,8 +52,8 @@ const Login = (props) => {
     dispatch(user_signin({data:{username , password}}))
     .then(({successMessage})=>{
         setLoading(false)
-        dispatch(setCurrentUser(jwtDecode(cookies.get('rider_access'))))
-        localStorage.setItem("uuid",jwtDecode(cookies.get('rider_access')).id)
+        dispatch(setCurrentUser(jwtDecode(cookies.get('ainma_access'))))
+        localStorage.setItem("uuid",jwtDecode(cookies.get('ainma_access')).id)
         history.push('/admin/index')
       }).catch((err)=>{
           setLoading(false)

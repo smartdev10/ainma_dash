@@ -108,15 +108,15 @@ const  Users = () => {
       return users.map((user) => {
         return (
           <tr key={user._id}>
-          <th scope="row">
+          <th className="align-middle" scope="row">
                 <span className="mb-0 text-sm">
                  { user.name}
                 </span>
           </th>
-          <td>{ user.phoneNumber }</td>
-          <td>{ user.email }</td>
+          <td className="align-middle">{ user.phoneNumber }</td>
+          <td className="align-middle">{ user.email }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
-          <td>
+          <td className="align-middle">
             <div className="d-flex align-items-center">
               <div className="ml-2">
                 <Button

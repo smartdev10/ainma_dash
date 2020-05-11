@@ -37,13 +37,16 @@ import { fetchOrders , deleteOrder } from "../../store/actions/orders";
 import Header from "components/Headers/Header.jsx";
 import Paginations from "components/Footers/Paginations";
 import Confirm from "components/Modals/Confirm";
+import ShowModal from "components/Modals/ShowModal";
 
 
 const  Orders = () => {
   const [confirm, setConfirmModal] = useState(false)
+  const [show, setShowModal] = useState(false)
 
   const [currentPage , setCurrentPage] = useState(1)
   const [id, setId] = useState(null)
+  const [order, setOrder] = useState({})
   const [message, setMessage] = useState("Are You Sure You want to delete this ?")
   const orders = useSelector(state => state.orders)
   const totalOrders = useSelector(state => state.totalOrders)
@@ -72,7 +75,6 @@ const  Orders = () => {
 
   const onPageChanged = (page , totalPages)=>{
     const currentPage = Math.max(0, Math.min(page, totalPages));
-
     const offset = (currentPage - 1) * 10;
     dispatch(fetchOrders({
       pagination: { page : offset , perPage: 10 },
@@ -105,14 +107,19 @@ const  Orders = () => {
       return orders.map((order) => {
         return (
           <tr key={order._id}>
-          <th scope="row">
+          <th className="align-middle" scope="row">
                 <span className="mb-0 text-sm">
-                 { order.email}
+                 { order.number}
                 </span>
           </th>
-          <td>{ order.phone_number }</td>
+          <td className="align-middle">{ order.user.name }</td>
+          <td className="align-middle">{ order.totalPrice ? order.totalPrice : "غير وارد"  }</td>
+          <td className="align-middle">{ order.status  ? order.status : "غير وارد"  }</td>
+          <td className="align-middle">{ order.gift_sender  ? order.gift_sender : "غير وارد"  }</td>
+          <td className="align-middle">{ order.gift_receiver  ? order.gift_receiver : "غير وارد"  }</td>
+          <td className="align-middle">{ order.gift_receiver_phone_number   ? order.gift_receiver_phone_number : "غير وارد" }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
-          <td>
+          <td className="align-middle">
             <div className="d-flex align-items-center">
               <div className="ml-2">
                 <Button
@@ -132,12 +139,12 @@ const  Orders = () => {
                 type="button"
                 color="primary"
                 onClick={() =>  {
-                  setId(order._id)
-                  setConfirmModal(c => !c )
+                  setOrder(order)
+                  setShowModal(c => !c )
                 }}
                 >
                 <i className="fas fa-info-circle ml-2"></i>
-                عرض
+                تفاصيل الطلب
                 </Button>
               </div>
             </div>
@@ -166,6 +173,7 @@ const  Orders = () => {
           <Row>
             <div className="col">
               <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
+              <ShowModal message={message} order={order} show={show}  toggleShowModal={setShowModal} />
               <Card className="shadow">
                 <CardHeader className="d-flex justify-content-end border-0">
                   <h3 className="mb-0">
@@ -176,12 +184,16 @@ const  Orders = () => {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col">رقم الطلب</th>
+                      <th scope="col">صاحب الطلب</th>
+                      <th scope="col">المبلغ الإجمالي</th>
                       <th scope="col">حالة الطلب</th>
-                      <th scope="col">تاريخ الطلب</th>
+                      <th scope="col">المهدي</th>
+                      <th scope="col">المهدى إليه</th>
+                      <th scope="col">جوال المهدى إليه</th>
                       <th scope="col" />
                     </tr>
                   </thead>
-                  <tbody className="text-right">
+                  <tbody >
                      {renderOrders()}
                   </tbody>
                 </Table>
