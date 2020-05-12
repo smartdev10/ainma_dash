@@ -10,7 +10,7 @@ import {
   Button,
   Label
 } from "reactstrap";
-import { UploadSokia , fetchOneImage } from "../../store/actions/pages";
+import { UploadSokia , fetchOneImage , deleteSokia } from "../../store/actions/pages";
 import { useDispatch  } from "react-redux";
 import {delay} from "utils/";
 
@@ -18,33 +18,56 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
 
   const [preview, setPreview] = useState("")
   const [loading, setLoading] = useState(false)
+  const [loadingd, setLoadingd] = useState(false)
   const [image, setImage] = useState({})
   const dispatch = useDispatch()
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    if(image){
-      const formdata = new FormData()
-      formdata.append("sokia", image);
-      setLoading(true)
-      dispatch(UploadSokia({data:formdata}))
+    const handleSubmit = e => {
+      e.preventDefault()
+      if(image){
+        const formdata = new FormData()
+        formdata.append("sokia", image);
+        setLoading(true)
+        dispatch(UploadSokia({data:formdata}))
+        .then(() => {
+          setStatus("success")
+          setMessage("تمت العملية بنجاح !")
+          setLoading(false)
+          toggleNotifyModal(true)
+          delay(2000).then(()=>{
+            toggleNotifyModal(false)
+            setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
+          })
+        })
+        .catch((err)=> {
+          setLoading(false)
+          setStatus("danger")
+          setMessage(`  لم تتم العملية بنجاح !`)
+          toggleNotifyModal(true)
+      })
+    }
+  }
+
+  const deleteImage = e => {
+      setLoadingd(true)
+      dispatch(deleteSokia({ids:[]}))
       .then(() => {
         setStatus("success")
         setMessage("تمت العملية بنجاح !")
-        setLoading(false)
+        setLoadingd(false)
         toggleNotifyModal(true)
-        delay(2000).then(()=>{
+        setPreview('')
+        delay(1000).then(()=>{
           toggleNotifyModal(false)
           setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
         })
       })
       .catch((err)=> {
-        setLoading(false)
+        setLoadingd(false)
         setStatus("danger")
         setMessage(`  لم تتم العملية بنجاح !`)
         toggleNotifyModal(true)
     })
-  }
 }
 
   useEffect(()=>{
@@ -99,6 +122,7 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
                   </FormGroup>
                   <Button  color="primary" className="float-right m-2">  {loading ? 'جاري التحميل...' : 'تحميل الصورة'}</Button>
                 </Form>
+                <Button onClick={deleteImage}   color="danger" className="float-right m-2">  {loadingd ? 'جاري الحذف...' : 'حذف الصورة'} </Button>
               </ListGroupItem>
               <ListGroupItem>
                  <img className="img-fluid" src={preview} alt="" />

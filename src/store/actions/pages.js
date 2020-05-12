@@ -25,6 +25,12 @@ export const UploadSokia = (params) => {
   };
 };
 
+export const deleteSokia = (params) => {
+  return dispatch => {
+    return dataProvider("DELETE_MANY", "images", params)
+  };
+};
+
 export const fetchOneImage = (params) => {
   return dispatch => {
     return dataProvider("GET_ONE", "images", params)
