@@ -19,12 +19,12 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
   const [preview, setPreview] = useState("")
   const [loading, setLoading] = useState(false)
   const [loadingd, setLoadingd] = useState(false)
-  const [image, setImage] = useState({})
+  const [image, setImage] = useState([])
   const dispatch = useDispatch()
 
     const handleSubmit = e => {
       e.preventDefault()
-      if(image){
+      if(image.length > 0){
         const formdata = new FormData()
         formdata.append("sokia", image);
         setLoading(true)
@@ -45,6 +45,10 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
           setMessage(`  لم تتم العملية بنجاح !`)
           toggleNotifyModal(true)
       })
+    }else{
+      setStatus("danger")
+      setMessage(` المرجو اختيار الصورة`)
+      toggleNotifyModal(true)
     }
   }
 
@@ -122,7 +126,7 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
                   </FormGroup>
                   <Button  color="primary" className="float-right m-2">  {loading ? 'جاري التحميل...' : 'تحميل الصورة'}</Button>
                 </Form>
-                <Button onClick={deleteImage}   color="danger" className="float-right m-2">  {loadingd ? 'جاري الحذف...' : 'حذف الصورة'} </Button>
+               { preview !== "" ?  <Button onClick={deleteImage}   color="danger" className="float-right m-2">  { loadingd ? 'جاري الحذف...' : 'حذف الصورة' }</Button>  : null }   
               </ListGroupItem>
               <ListGroupItem>
                  <img className="img-fluid" src={preview} alt="" />
