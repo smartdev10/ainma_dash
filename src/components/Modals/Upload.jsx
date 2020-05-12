@@ -24,6 +24,7 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
 
     const handleSubmit = e => {
       e.preventDefault()
+      console.log(image)
       if(image instanceof File){
         const formdata = new FormData()
         formdata.append("sokia", image);
@@ -61,7 +62,6 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
         setLoadingd(false)
         toggleNotifyModal(true)
         setPreview('')
-        setImage([])
         delay(1000).then(()=>{
           toggleNotifyModal(false)
           setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
@@ -123,7 +123,7 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
                 <Form onSubmit={handleSubmit}>
                   <FormGroup  dir="rtl" className="mr-3">
                     <Label className="float-right" for="image">تعديل صورة السقيا </Label>
-                    <Input  onChange={onChange} type="file" name="sokia" id="exampleFile" />
+                    <Input onClick={e => e.target.value = null} onChange={onChange} type="file" name="sokia" id="exampleFile" />
                   </FormGroup>
                   <Button  color="primary" className="float-right m-2">  {loading ? 'جاري التحميل...' : 'تحميل الصورة'}</Button>
                 </Form>
