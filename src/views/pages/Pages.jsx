@@ -43,16 +43,20 @@ import Paginations from "components/Footers/Paginations";
 import EditPageModal from "components/Modals/EditPageModal";
 import AddPageModal from "components/Modals/AddPageModal";
 import Confirm from "components/Modals/Confirm";
+import Notification from "components/Modals/Notification";
 import {delay} from "utils/";
 
 
 const Pages = () => {
   
+  const [notify, setNotifyModal] = useState(false)
   const [addModal, setToggleAddModal] = useState(false)
   const [editModal, setToggleEditModal] = useState(false)
   const [confirm, setConfirmModal] = useState(false)
   const [message, setMessage] = useState("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
   const [doc , setDocument] = useState({})
+  const [status, setStatus] = useState("danger")
+
   const [currentPage , setCurrentPage] = useState(1)
   const [image, setImage] = useState(undefined)
 
@@ -70,11 +74,20 @@ const Pages = () => {
         formdata.append("sokia", image);
         dispatch(UploadSokia({data:formdata}))
         .then(() => {
-        
+          setStatus("success")
+          setMessage("تمت العملية بنجاح !")
+          setNotifyModal(true)
+          delay(2000).then(()=>{
+            setNotifyModal(false)
+            setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
+          })
         })
         .catch((err)=> {
-        })
-      }
+          setStatus("danger")
+          setMessage(`  لم تتم العملية بنجاح !`)
+          setNotifyModal(true)
+      })
+    }
   }
 
   const pages = useSelector(state => state.pages)
@@ -215,6 +228,8 @@ const Pages = () => {
               <EditPageModal doc={doc} currentModal={editModal} togglePageModal={setToggleEditModal}/>
               <Confirm message={message} id={doc._id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
               <AddPageModal currentPage={currentPage} open={addModal} toggleAddPageModal={setToggleAddModal}/>
+              <Notification  message={message}  status={status} notify={notify}  toggleNotifyModal={setNotifyModal} />
+
               <Card className="shadow">
                 <CardHeader className="d-flex justify-content-end border-0">
                   <h3 className="mb-0">إعدادات</h3>
