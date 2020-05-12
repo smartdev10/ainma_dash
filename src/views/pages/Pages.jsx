@@ -26,24 +26,21 @@ import {
   Button,
   Container,
   Row,
-  Form,
-  Input,
-  FormGroup,
-  Label,
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit  } from '@fortawesome/free-solid-svg-icons'
+import { faEdit  , faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import Loader from 'react-loader-spinner'
 // import moment from 'moment';
 // core components
 import { useSelector , useDispatch  } from "react-redux";
-import { fetchPages , deletePage , UploadSokia } from "../../store/actions/pages";
+import { fetchPages , deletePage } from "../../store/actions/pages";
 import Header from "components/Headers/Header.jsx";
 import Paginations from "components/Footers/Paginations";
 import EditPageModal from "components/Modals/EditPageModal";
 import AddPageModal from "components/Modals/AddPageModal";
 import Confirm from "components/Modals/Confirm";
 import Notification from "components/Modals/Notification";
+import Upload from "components/Modals/Upload";
 import {delay} from "utils/";
 
 
@@ -51,6 +48,7 @@ const Pages = () => {
   
   const [notify, setNotifyModal] = useState(false)
   const [addModal, setToggleAddModal] = useState(false)
+  const [up, setToggleUploadModal] = useState(false)
   const [editModal, setToggleEditModal] = useState(false)
   const [confirm, setConfirmModal] = useState(false)
   const [message, setMessage] = useState("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
@@ -58,38 +56,7 @@ const Pages = () => {
   const [status, setStatus] = useState("danger")
 
   const [currentPage , setCurrentPage] = useState(1)
-  const [image, setImage] = useState(undefined)
-
-  const onChange = e => {
-    const files = Array.from(e.target.files)
-    if(files.length > 0){
-      setImage(files[0])
-    }
-  }
-
-  const handleSubmit = e => {
-      e.preventDefault()
-      if(image){
-        const formdata = new FormData()
-        formdata.append("sokia", image);
-        dispatch(UploadSokia({data:formdata}))
-        .then(() => {
-          setStatus("success")
-          setMessage("تمت العملية بنجاح !")
-          setNotifyModal(true)
-          delay(2000).then(()=>{
-            setNotifyModal(false)
-            setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
-          })
-        })
-        .catch((err)=> {
-          setStatus("danger")
-          setMessage(`  لم تتم العملية بنجاح !`)
-          setNotifyModal(true)
-      })
-    }
-  }
-
+  
   const pages = useSelector(state => state.pages)
   const totalPages = useSelector(state => state.totalPages)
   const dispatch = useDispatch()
@@ -98,6 +65,7 @@ const Pages = () => {
     const offset = (currentPage - 1) * 10;
     setMessage("Deleting...")
     dispatch(deletePage({ids:[id]})).then(()=>{
+      setStatus("success")
       setMessage("تمت العملية بنجاح !")
       dispatch(fetchPages({
         pagination: { page : offset , perPage: offset + 10 },
@@ -110,6 +78,7 @@ const Pages = () => {
         })
       })
     }).catch((err)=>{
+      setStatus("danger")
       setMessage("  لم تتم العملية بنجاح !")
     })
   }
@@ -222,6 +191,19 @@ const Pages = () => {
                       إضافة صفحة
                   </Button>
                 </div> */}
+                  <div className="mr-3">
+                  <Button
+                    color="primary"
+                    className="mb-3"
+                    type="button"
+                    onClick={() => {
+                      setToggleUploadModal(true) 
+                    }}
+                    >
+                      <FontAwesomeIcon className="ml-3" icon={faPlusCircle} />
+                      صورة السقيا
+                  </Button>
+                </div>
                </Row>
               <Row>
               <div className="col">
@@ -229,22 +211,15 @@ const Pages = () => {
               <Confirm message={message} id={doc._id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />
               <AddPageModal currentPage={currentPage} open={addModal} toggleAddPageModal={setToggleAddModal}/>
               <Notification  message={message}  status={status} notify={notify}  toggleNotifyModal={setNotifyModal} />
+              <Upload setStatus={setStatus} setMessage={setMessage} toggleUploadModal={setToggleUploadModal}  message={message}  status={status} up={up}  toggleNotifyModal={setNotifyModal} />
 
               <Card className="shadow">
                 <CardHeader className="d-flex justify-content-end border-0">
-                  <h3 className="mb-0">إعدادات</h3>
                 </CardHeader>
-                <Form onSubmit={handleSubmit}>
-                  <FormGroup  dir="rtl" className="mr-3">
-                    <Label className="float-right" for="image">صورة السقيا</Label>
-                    <Input  onChange={onChange} type="file" name="sokia" id="exampleFile" />
-                  </FormGroup>
-                  <Button  color="primary" className="float-right m-2">تحميل الصورة</Button>
-                </Form>
                 <Table dir="rtl" className="text-right" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">الصفحة</th>
+                      <th scope="col">الشروط و الأحكام</th>
                       <th scope="col"/>
                     </tr>
                   </thead>

@@ -21,10 +21,15 @@ export const CreatePage = (params) => {
 
 export const UploadSokia = (params) => {
   return dispatch => {
-    return dataProvider("CREATE", "pages/sokia", params)
+    return dataProvider("CREATE", "images/sokia", params)
   };
 };
 
+export const fetchOneImage = (params) => {
+  return dispatch => {
+    return dataProvider("GET_ONE", "images", params)
+  };
+};
 
 export const updatePage = (params) => {
     return dispatch => {

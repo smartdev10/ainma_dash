@@ -3,11 +3,11 @@ import React , {useState , useEffect} from "react";
 import {
   Button,
   Modal,
-  Input,
-  FormGroup,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
+  // Input,
+  // FormGroup,
+  // InputGroup,
+  // InputGroupAddon,
+  // InputGroupText,
 } from "reactstrap";
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, ContentState , convertToRaw } from 'draft-js';
@@ -37,7 +37,7 @@ const PageModal = ({doc , togglePageModal , currentModal })=> {
     editorState1 = EditorState.createWithContent(contentState);
   }
   const saveDoc = (e) => {
-    dispatch(updatePage({data:{ id:doc._id , page , body:draftToHtml(convertToRaw(editorState.getCurrentContent())) }}))
+    dispatch(updatePage({id:doc._id , data:{page , body:draftToHtml(convertToRaw(editorState.getCurrentContent())) }}))
     .then(async()=> {
       await dispatch(fetchPages())
       togglePageModal(false)
@@ -64,9 +64,9 @@ const PageModal = ({doc , togglePageModal , currentModal })=> {
           size="lg"
           style={{maxWidth: '1600px',  width: '80%'}}
         >
-          <div className="modal-header">
+          <div dir="rtl" className="modal-header">
             <h4 className="modal-title" id="modal-title-default">
-             {doc.document}
+             {doc.page}
             </h4>
             <button
               aria-label="Close"
@@ -79,7 +79,7 @@ const PageModal = ({doc , togglePageModal , currentModal })=> {
             </button>
           </div>
           <div dir="rtl" className="modal-body">
-          <FormGroup className="mb-3">
+          {/* <FormGroup className="mb-3">
             <InputGroup className="input-group-alternative">
               <InputGroupAddon addonType="prepend">
                 <InputGroupText>
@@ -88,7 +88,7 @@ const PageModal = ({doc , togglePageModal , currentModal })=> {
               </InputGroupAddon>
               <Input onChange={ (e)=> setDoc(e.target.value)} placeholder="إسم الصفحة" value={page} name="page" type="text" />
             </InputGroup>
-          </FormGroup>
+          </FormGroup> */}
           <Editor
             textAlignment="right"
             defaultEditorState={editorState1}
