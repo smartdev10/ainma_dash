@@ -24,7 +24,7 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
 
     const handleSubmit = e => {
       e.preventDefault()
-      if(image.length > 0){
+      if(image instanceof File){
         const formdata = new FormData()
         formdata.append("sokia", image);
         setLoading(true)
@@ -61,6 +61,7 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
         setLoadingd(false)
         toggleNotifyModal(true)
         setPreview('')
+        setImage([])
         delay(1000).then(()=>{
           toggleNotifyModal(false)
           setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
