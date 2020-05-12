@@ -94,7 +94,7 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
               <ListGroupItem>
                 <Form onSubmit={handleSubmit}>
                   <FormGroup  dir="rtl" className="mr-3">
-                    <Label className="float-right" for="image">صورة السقيا</Label>
+                    <Label className="float-right" for="image">تعديل صورة السقيا </Label>
                     <Input  onChange={onChange} type="file" name="sokia" id="exampleFile" />
                   </FormGroup>
                   <Button  color="primary" className="float-right m-2">  {loading ? 'جاري التحميل...' : 'تحميل الصورة'}</Button>
