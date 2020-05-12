@@ -38,7 +38,7 @@ const ShowModal = ({show , toggleShowModal , order}) => {
             <div className="modal-body">
             <ListGroup className="text-right" dir="rtl">
              <ListGroupItem>
-              <strong> صاحب الطلب</strong> : {order.user.name}
+              <strong> صاحب الطلب</strong> : {order.user ? order.user.name : "غير وارد"}
              </ListGroupItem>
              {/* <ListGroupItem >
                <strong>المنتجات :</strong>
