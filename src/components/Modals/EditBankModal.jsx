@@ -108,7 +108,7 @@ const EditBank =({setMessage , toggleNotifyModal , toggleEditBankModal , open , 
              <ListGroupItem>
               <FormGroup>
                 <Label for="description"><strong>رقم الايبان :</strong> </Label>
-                <Input onChange={(e)=>  setIbanNumber(e.target.value) } value={ibanNumber} type="text" name="accountNumber" id="accountNumber" placeholder="أدخل رقم الايبان" />
+                <Input onChange={(e)=>  setIbanNumber(e.target.value) } value={ibanNumber} type="text" name="accountNumber" id="ibanNumber" placeholder="أدخل رقم الايبان" />
               </FormGroup>
              </ListGroupItem>
              <ListGroupItem>

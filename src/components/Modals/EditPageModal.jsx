@@ -26,6 +26,7 @@ const PageModal = ({doc , togglePageModal , currentModal })=> {
   const [content, setContent] = useState("")
   const [page, setDoc] = useState("")
   const [editorState, setEditorState] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch()
   let contentState;
@@ -36,14 +37,23 @@ const PageModal = ({doc , togglePageModal , currentModal })=> {
     contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
     editorState1 = EditorState.createWithContent(contentState);
   }
+
+
   const saveDoc = (e) => {
+   if(editorState.length !== 0){
+    setLoading(true)
     dispatch(updatePage({id:doc._id , data:{page , body:draftToHtml(convertToRaw(editorState.getCurrentContent())) }}))
     .then(async()=> {
+      setLoading(false)
       await dispatch(fetchPages())
       togglePageModal(false)
     })
     .catch((err)=> {
+      setLoading(false)
     })
+   }else{
+    togglePageModal(false)
+   }
   }
   
   const onEditorStateChange = (editorState) => {
@@ -54,7 +64,10 @@ const PageModal = ({doc , togglePageModal , currentModal })=> {
     setContent(doc.body)
     setDoc(doc.page)
   }, [doc]);
-
+ 
+  if(Object.keys(doc).length === 0){
+    return null
+ }else{
     return (
       <>
         <Modal
@@ -90,7 +103,7 @@ const PageModal = ({doc , togglePageModal , currentModal })=> {
             </InputGroup>
           </FormGroup> */}
           <Editor
-            textAlignment="right"
+            textDirectionality="RTL"
             defaultEditorState={editorState1}
             defaultContentState={contentState}
             toolbarClassName="toolbarClassName"
@@ -102,13 +115,14 @@ const PageModal = ({doc , togglePageModal , currentModal })=> {
           <div className="modal-footer">
             <Button  dir="rtl"   onClick={(e)=> saveDoc() } color="primary" type="button">
               <FontAwesomeIcon className="ml-2" icon={faSave} />
-              تعديل
+              {loading ? 'جاري التعديل...' : 'تعديل '}
             </Button>
           </div>
         </Modal>
       </>
     );
+  }
 }
 
 
-export default PageModal
+export default React.memo(PageModal)
