@@ -69,11 +69,11 @@ const ShowModal = ({show , toggleShowModal , order}) => {
                   return (
                     <Card className="m-2 shadow " key={item._id}>
                       <CardBody>
-                        <CardTitle className="font-weight-bold"> {item.place.name} </CardTitle>
+                        <CardTitle className="font-weight-bold"> {item.place ? item.place.name : "غير وارد"} </CardTitle>
                       </CardBody>
                       <img className="m-auto" style={{objectFit:"contain"}} width="120rem" height="120rem" src={`http://54.88.189.39/pics/products/${item.product.picture}`} alt=""/>
                       <CardBody>
-                        <CardSubtitle> {item.product.name}  </CardSubtitle>
+                        <CardSubtitle> {item.product ? item.product.name : "غير وارد"}  </CardSubtitle>
                         <CardText>  {item.product.description}</CardText>
                         <CardText> <strong>الكمية</strong> : {item.quantity}</CardText>
                       </CardBody>
@@ -86,7 +86,7 @@ const ShowModal = ({show , toggleShowModal , order}) => {
               <strong>المبلغ الإجمالي</strong> : { order.totalPrice ? order.totalPrice +  ' ريال'  : "غير وارد"  }
              </ListGroupItem>
              <ListGroupItem>
-             <strong>البنك</strong> : {order.bank_id.name}
+             <strong>البنك</strong> : {order.bank_id ? order.bank_id.name : "غير وارد"}
              </ListGroupItem>
              <ListGroupItem className="text-center">
                  <strong className="float-right">إيصال التحويل :</strong>
