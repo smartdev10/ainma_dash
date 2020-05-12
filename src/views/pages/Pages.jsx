@@ -32,7 +32,7 @@ import {
   Label,
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt , faEdit ,faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faEdit  } from '@fortawesome/free-solid-svg-icons'
 import Loader from 'react-loader-spinner'
 // import moment from 'moment';
 // core components
@@ -158,7 +158,7 @@ const Pages = () => {
                 تعديل
               </Button>
               </div>
-              <div className="ml-2">
+              {/* <div className="ml-2">
               <Button
               type="button"
               color="danger"
@@ -170,7 +170,7 @@ const Pages = () => {
                 <FontAwesomeIcon className="ml-2" icon={faTrashAlt} />
                 حذف
               </Button>
-              </div>
+              </div> */}
 
             </div>
           </td>
@@ -197,7 +197,7 @@ const Pages = () => {
         <Container className="mt--7" fluid>
           {/* Table */}
               <Row dir="rtl">
-                <div className="mr-3">
+                {/* <div className="mr-3">
                   <Button
                     className="mb-3"
                     type="button"
@@ -208,7 +208,7 @@ const Pages = () => {
                       <FontAwesomeIcon className="ml-3" icon={faPlusCircle} />
                       إضافة صفحة
                   </Button>
-                </div>
+                </div> */}
                </Row>
               <Row>
               <div className="col">
