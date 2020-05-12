@@ -19,6 +19,7 @@ import Index from "views/Index";
 import Login from "views/pages/Login";
 import Messages from "views/pages/Messages";
 import Banks from "views/pages/Banks";
+import Pages from "views/pages/Pages";
 import Places from "views/pages/Places";
 import Orders from "views/pages/Orders";
 import Products from "views/pages/Products";
@@ -72,6 +73,13 @@ var routes = [
     name: "الأبناك ",
     icon: "ni ni-paper-diploma text-info",
     component: Banks,
+    layout: "/admin"
+  },
+  {
+    path: "/pages",
+    name: "إعدادات أخرى ",
+    icon: "ni ni-settings text-info",
+    component: Pages,
     layout: "/admin"
   },
   {

@@ -67,11 +67,11 @@ const ShowModal = ({show , toggleShowModal , order}) => {
              <ListGroupItem className="d-flex flex-wrap" dir="rtl" >
                  {order.items.map(item =>{
                   return (
-                    <Card className="mr-2 shadow " key={item._id}>
+                    <Card className="m-2 shadow " key={item._id}>
                       <CardBody>
                         <CardTitle className="font-weight-bold"> {item.place.name} </CardTitle>
                       </CardBody>
-                      <img style={{objectFit:"contain"}} width="100%" src={`http://54.88.189.39/pics/products/${item.product.picture}`} alt=""/>
+                      <img className="m-auto" style={{objectFit:"contain"}} width="120rem" height="120rem" src={`http://54.88.189.39/pics/products/${item.product.picture}`} alt=""/>
                       <CardBody>
                         <CardSubtitle> {item.product.name}  </CardSubtitle>
                         <CardText>  {item.product.description}</CardText>

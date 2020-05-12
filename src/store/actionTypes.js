@@ -4,6 +4,7 @@ export const SET_CURRENT_USER ="SET_CURRENT_USER";
 export const LOGIN_FAILURE ="LOGIN_FAILURE";
 export const IS_LOADING = "IS_LOADING";
 
+export const LOAD_PAGES ="LOAD_PAGES";
 export const LOAD_PRODUCTS ="LOAD_PRODUCTS";
 export const LOAD_USERS ="LOAD_USERS";
 export const LOAD_ORDERS ="LOAD_ORDERS";
@@ -11,7 +12,7 @@ export const LOAD_MESSAGES ="LOAD_MESSAGES";
 export const LOAD_PLACES ="LOAD_PLACES";
 export const LOAD_BANKS ="LOAD_BANKS";
 
-
+export const GET_TOTAL_PAGES ="GET_TOTAL_PAGES";
 export const GET_TOTAL_PRODUCTS ="GET_TOTAL_PRODUCTS";
 export const GET_TOTAL_ORDERS ="GET_TOTAL_ORDERS";
 export const GET_TOTAL_USERS ="GET_TOTAL_USERS";

@@ -64,6 +64,7 @@ const  Products = () => {
 
     setMessage("جاري الحذف....")
     dispatch(deleteBank({ids:[id]})).then(()=>{
+      setStatus("success")
       setMessage("تمت العملية بنجاح !")
       dispatch(fetchBanks({
         pagination: { page : offset , perPage: offset + 10 },
