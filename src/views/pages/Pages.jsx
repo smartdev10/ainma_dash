@@ -201,7 +201,7 @@ const Pages = () => {
                     }}
                     >
                       <FontAwesomeIcon className="ml-3" icon={faPlusCircle} />
-                      صورة السقيا
+                      تعديل صورة السقيا 
                   </Button>
                 </div>
                </Row>
