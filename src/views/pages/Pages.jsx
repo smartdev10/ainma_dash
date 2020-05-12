@@ -28,7 +28,7 @@ import {
   Row,
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit  , faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import Loader from 'react-loader-spinner'
 // import moment from 'moment';
 // core components
@@ -200,7 +200,7 @@ const Pages = () => {
                       setToggleUploadModal(true) 
                     }}
                     >
-                      <FontAwesomeIcon className="ml-3" icon={faPlusCircle} />
+                      <FontAwesomeIcon className="ml-3" icon={faEdit} />
                       تعديل صورة السقيا 
                   </Button>
                 </div>
