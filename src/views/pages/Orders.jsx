@@ -131,7 +131,7 @@ const  Orders = () => {
                  { order.number}
                 </span>
           </th>
-          <td className="align-middle">{ order.user.name }</td>
+          <td className="align-middle">{ order.user ? order.user.name : "غير وارد" }</td>
           <td className="align-middle">{ order.totalPrice ? order.totalPrice +  ' ريال'  : "غير وارد"  }</td>
           <td className="align-middle">{ order.gift_sender  ? order.gift_sender : "غير وارد"  }</td>
           <td className="align-middle">{ order.gift_receiver  ? order.gift_receiver : "غير وارد"  }</td>
