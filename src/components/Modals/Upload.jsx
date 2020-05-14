@@ -21,6 +21,7 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
   const [loadingd, setLoadingd] = useState(false)
   const [image, setImage] = useState([])
   const dispatch = useDispatch()
+  let isCancelled = React.useRef(false);
 
     const handleSubmit = e => {
       e.preventDefault()
@@ -31,20 +32,27 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
         setLoading(true)
         dispatch(UploadSokia({data:formdata}))
         .then(() => {
-          setStatus("success")
-          setMessage("تمت العملية بنجاح !")
-          setLoading(false)
-          toggleNotifyModal(true)
-          delay(2000).then(()=>{
-            toggleNotifyModal(false)
-            setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
-          })
+        if(!isCancelled.current){
+            setStatus("success")
+            setMessage("تمت العملية بنجاح !")
+            setLoading(false)
+            toggleNotifyModal(true)
+            delay(1000).then(()=>{
+              toggleNotifyModal(false)
+              delay(500).then(()=>{
+                setStatus("danger")
+                setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
+              })
+            })
+          }
         })
         .catch((err)=> {
+        if(!isCancelled.current){
           setLoading(false)
           setStatus("danger")
           setMessage(`  لم تتم العملية بنجاح !`)
           toggleNotifyModal(true)
+        }
       })
     }else{
       setStatus("danger")
@@ -57,32 +65,44 @@ const UploadModal = ({setStatus , setMessage, up , toggleUploadModal , toggleNot
       setLoadingd(true)
       dispatch(deleteSokia({ids:[]}))
       .then(() => {
-        setStatus("success")
-        setMessage("تمت العملية بنجاح !")
-        setLoadingd(false)
-        toggleNotifyModal(true)
-        setPreview('')
-        delay(1000).then(()=>{
-          toggleNotifyModal(false)
-          setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
-        })
+        if(!isCancelled.current){
+          setStatus("success")
+          setMessage("تمت العملية بنجاح !")
+          setLoadingd(false)
+          toggleNotifyModal(true)
+          setPreview('')
+          setImage([])
+          delay(1000).then(()=>{
+            toggleNotifyModal(false)
+            delay(500).then(()=>{
+              setStatus("danger")
+              setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
+            })
+          })
+        }
       })
       .catch((err)=> {
-        setLoadingd(false)
-        setStatus("danger")
-        setMessage(`  لم تتم العملية بنجاح !`)
-        toggleNotifyModal(true)
+        if(!isCancelled.current){
+          setLoadingd(false)
+          setStatus("danger")
+          setMessage(`لم تتم العملية بنجاح !`)
+          toggleNotifyModal(true)
+        }
     })
 }
 
   useEffect(()=>{
     dispatch(fetchOneImage({id:'sokia'}))
     .then((image) => {
-    setPreview(`/pics/${image.name}`)
+       setPreview(`/pics/${image.name}`)
     })
     .catch((err)=> {
    
-   })
+    })
+
+   return () => {
+    isCancelled.current = true;
+   };
   },[dispatch])
 
   const onChange = e => {

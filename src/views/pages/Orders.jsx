@@ -53,22 +53,32 @@ const  Orders = () => {
   const orders = useSelector(state => state.orders)
   const totalOrders = useSelector(state => state.totalOrders)
   const dispatch = useDispatch()
+  let isCancelled = React.useRef(false);
 
   const updatedStatus = (data) => {
+    setMessage(`جاري التحديث...`)
+    setNotifyModal(true)
     dispatch(updateOrder(data)).then(()=>{
       dispatch(fetchOrders()).then(()=>{
+      if(!isCancelled.current){
         setStatus("success")
         setMessage(`تم تحديث حالة الطلب`)
         setNotifyModal(true)
-        delay(2000).then(()=>{
+        delay(1000).then(()=>{
           setNotifyModal(false)
-          setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
+          delay(500).then(()=>{
+            setStatus("danger")
+            setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
+          })
         })
+      }
       })
     }).catch((err)=>{
+      if(!isCancelled.current){
         setStatus("danger")
         setMessage(`  لم تتم العملية بنجاح !`)
         setNotifyModal(true)
+      }
     })
   }
 
@@ -76,19 +86,27 @@ const  Orders = () => {
     const offset = (currentPage - 1) * 10;
     setMessage("جاري الحذف....")
     dispatch(deleteOrder({ids:[id]})).then(()=>{
+      setStatus("success")
       setMessage("تمت العملية بنجاح !")
       dispatch(fetchOrders({
         pagination: { page : offset , perPage: offset + 10 },
         sort: { field: 'name' , order: 'ASC' },
         filter: {},
       })).then(()=>{
+      if(!isCancelled.current){
         delay(1000).then(()=>{
           setConfirmModal(false)
-          setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
+          delay(500).then(()=>{
+            setStatus("danger")
+            setMessage("هل أنت متؤكد  من أنك تريد حذف هذا ؟")
+          })
         })
+      }
       })
     }).catch((err)=>{
-      setMessage("  لم تتم العملية بنجاح !")
+      if(!isCancelled.current){
+        setMessage("  لم تتم العملية بنجاح !")
+      }
     })
   }
 
@@ -105,6 +123,9 @@ const  Orders = () => {
 
   useEffect(() => {
      dispatch(fetchOrders())
+     return () => {
+      isCancelled.current = true;
+    };
   }, [dispatch]);
   
   
