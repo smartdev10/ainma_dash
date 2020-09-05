@@ -111,7 +111,7 @@ const  Places = () => {
      </tr>
     )
    } else if(places.length > 0){
-      return places.map((place) => {
+      return places.filter(item => item.source == "web").map((place) => {
         return (
           <tr key={place._id}>
           <th className="align-middle" scope="row">
@@ -120,9 +120,23 @@ const  Places = () => {
                 </span>
           </th>
           <td className="align-middle">{ place.type }</td>
+          <td className="align-middle">{ place.phoneNumber ? place.phoneNumber : "--" }</td>
           {/* <td>{moment(user.createdAt).format('YYYY-MM-DD')}</td> */}
           <td className="align-middle">
              <div className="d-flex align-items-center">
+             <div className="ml-2">
+                <Button
+                type="button"
+                color="primary"
+                onClick={() =>  {
+                  setPlace(place)
+                  setEditModal(c => !c )
+                }}
+                >
+                <i className="fas fa-info-circle ml-2"></i>
+                تعديل
+                </Button>
+              </div>
               <div className="ml-2">
                 <Button
                 type="button"
@@ -134,19 +148,6 @@ const  Places = () => {
                 >
                 <i className="far fa-trash-alt ml-2"></i>
                 حذف
-                </Button>
-              </div>
-              <div className="ml-2">
-                <Button
-                type="button"
-                color="primary"
-                onClick={() =>  {
-                  setPlace(place)
-                  setEditModal(c => !c )
-                }}
-                >
-                <i className="fas fa-info-circle ml-2"></i>
-                تعديل
                 </Button>
               </div>
             </div>
@@ -203,7 +204,8 @@ const  Places = () => {
                     <tr>
                       <th scope="col">اسم الموقع</th>
                       <th scope="col">نوع الموقع</th>
-                      <th scope="col">إحداثيات الموقع</th>
+                      <th scope="col">رقم الهاتف</th>
+                      <th scope="col"></th>
                       <th scope="col" />
                     </tr>
                   </thead>

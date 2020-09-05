@@ -75,7 +75,9 @@ const ShowModal = ({show , toggleShowModal , order}) => {
                       <CardBody>
                         <CardSubtitle> {item.product ? item.product.name : "غير وارد"}  </CardSubtitle>
                         <CardText>  {item.product.description}</CardText>
-                        <CardText> <strong>الكمية</strong> : {item.quantity}</CardText>
+
+                        <CardText style={{marginBottom: -3}}> {item.product ? "الثمن : " + item.product.price + " ريال " : "- ريال"}  </CardText>
+                        <CardText> الكمية : {item.quantity}</CardText>
                       </CardBody>
                     </Card>
                    

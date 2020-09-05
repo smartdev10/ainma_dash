@@ -1,1 +1,1 @@
-Rider App dashboard
+Ainma App dashboard
